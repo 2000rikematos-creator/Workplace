@@ -1,0 +1,6 @@
+.question-mark{
+    stroke:var(--light-color);
+    stroke-width: 2px;
+    height: 30px;
+    width: 30px;
+}

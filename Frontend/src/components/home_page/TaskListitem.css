@@ -1,0 +1,34 @@
+.task-list-item{
+    white-space: normal;
+    height: 4em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: white;
+     font-family: var(--font-family-default);
+     justify-content: start;
+     width: 80%;
+     max-width: 100%;
+     white-space: nowrap;
+   padding: 0em 2em;
+   padding-left: 1em;
+}
+
+.task-list-item:active{
+cursor: pointer;
+ background-color: white;
+color:var(--main-color);
+}
+
+.task-list-item:active .task-name{
+    scale: 1.2;
+}
+
+
+@media(any-hover: hover){
+    .task-list-item:hover{
+        cursor: pointer;
+        background-color: white;
+        color:var(--main-color);
+    }
+}

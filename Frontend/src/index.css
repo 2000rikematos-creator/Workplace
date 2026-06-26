@@ -1,0 +1,25 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+
+*{
+  margin: 0;
+}
+
+
+:root{
+  --main-color: #1B365D;
+  --secondary-color: #132644;
+  --light-color: #ffffff;
+  --background:#ececec;
+  --font-family-default: "Plus Jakarta Sans", sans-serif;
+  --card-color: #cbcbcb;
+  --default-orange: rgb(250, 113, 0);
+  --default-light-orange: rgb(255, 199, 154);
+  --default-green:rgb(103, 200, 103);
+  --default-light-green:rgb(199, 255, 199);
+height: fit-content;
+overflow: hidden;
+}
+
+

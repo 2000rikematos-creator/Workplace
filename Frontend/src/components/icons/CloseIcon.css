@@ -1,0 +1,17 @@
+.close-icon{
+    position: relative;
+    color: var(--light-color);
+    height:45px;
+    width: 45px;
+    stroke-width: 3px;
+}
+
+.close-icon:active{
+scale: 1.1;;
+}
+
+@media(any-hover: hover){
+    .close-icon:hover{
+        cursor: pointer;
+    }
+}

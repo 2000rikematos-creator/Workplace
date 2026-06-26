@@ -1,0 +1,9 @@
+.landing-page-container{
+    grid-column: 1/2;
+    background-color: var(--background-color);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

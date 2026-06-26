@@ -1,0 +1,37 @@
+.enviornment{
+    padding: 2em;
+    width: auto;
+    position: relative;
+    top:0em;
+    height: 85vh;
+    display: flex;
+    flex-direction: row;
+    gap:20px;
+    margin: 0;
+    grid-column: 2/2;
+     overflow-y: scroll;
+     overflow-x: hidden;
+    
+}
+.enviornment::-webkit-scrollbar {
+  background:transparent;
+  width: 6px; /* Uma barra super fininha */
+}
+.enviornment::-webkit-scrollbar-track {
+  background: transparent; /* Cor igual ao fundo da tua sidebar */
+}
+.enviornment::-webkit-scrollbar-thumb {
+  background: var(--secondary-color); /* Um cinzento escuro discreto para o manípulo */
+  border-radius: 99px;
+}
+
+@media(max-width:900px){
+    .enviornment{
+        grid-column: 1/2;
+        max-width: 100vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+    }
+}

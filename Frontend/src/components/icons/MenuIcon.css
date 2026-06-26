@@ -1,0 +1,19 @@
+.menu-icon{
+    position: relative;
+    right: 30px;
+    color: var(--light-color);
+    height:40px;
+    width: 40px;
+    stroke-width: 2;
+   
+}
+
+.menu-icon:active{
+scale: 1.1;;
+}
+
+@media(any-hover: hover){
+    .menu-icon:hover{
+        cursor: pointer;
+    }
+}

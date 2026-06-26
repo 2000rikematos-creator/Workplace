@@ -1,0 +1,99 @@
+.confirmation-modal{
+    background-color: white;
+    border-radius: 15px;
+    font-family: var(--font-family-default);
+    color: var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height:auto ;
+
+}
+
+.confirmation-modal h1{
+    padding: 1em 2em;
+}
+
+.confirmation-modal-button-container{
+    display: flex;
+    flex-direction: row;
+    gap:1em;
+}
+
+.confirmation-modal button{
+    letter-spacing: 1px;
+    font-size: 15px;
+    font-weight: 600;
+    width: fit-content;
+    font-weight: 700;
+    border-radius: 15px;
+    margin-bottom: 2em;
+    padding:5px 10px;
+}
+
+.confirmation-modal-confirm-button{
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+}
+
+.confirmation-modal-cancel-button{
+    background-color: var(--light-color);
+    color: var(--secondary-color);
+    font-weight: 600;
+    border:2px solid var(--secondary-color);
+}
+
+.confirmation-modal-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px 15px 0px 0px;
+    position: relative;
+    top: 0;
+    height: 3em;
+    width: 100%;
+    background-color:var(--secondary-color);
+}
+
+.confirmation-modal-cancel-button:active{
+background-color: var(--secondary-color);
+color: var(--light-color);
+scale: 1.1;
+
+}
+
+.confirmation-modal-confirm-button:active{
+background-color: var(--secondary-color);
+color: var(--light-color);
+scale: 1.1;
+}
+
+@media(any-hover: hover){
+    .confirmation-modal button:hover{
+        cursor: pointer;
+        box-shadow: 0px 0px;
+    }
+
+    .confirmation-modal-confirm-button:hover{
+        background-color: var(--light-color);
+        color: var(--secondary-color);
+    }
+    .confirmation-modal-cancel-button:hover{
+        background-color: var(--secondary-color);
+        color: var(--light-color);
+        border: 2px solid var(--secondary-color);
+    }
+}
+
+@media(max-width:650px){
+    .confirmation-modal{
+       text-align: center;
+        width: 70vw;
+    }
+
+    .confirmation-modal button{
+        font-size: 20px;
+    }
+}

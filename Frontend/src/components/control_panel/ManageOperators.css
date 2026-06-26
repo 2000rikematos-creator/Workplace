@@ -1,0 +1,132 @@
+
+.add-operator-form{
+    padding: 1em;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:20px;
+
+}
+
+.settings-header{
+    padding: 1em 2em;
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+    font-family: var(--font-family-default);
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    gap:1em;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+
+.add-operator-input{
+border-radius: 999px;
+padding: 10px 15px;
+border: 1px solid gray;
+}
+
+.add-operator-button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap:2em;
+    padding: 1em;
+}
+
+.add-operator-cancel-button, .add-operator-add-button{
+    background-color: var(--light-color);
+    font-family: var(--font-family-default);
+    border-radius: 999px;
+    padding: 5px 10px;
+    font-weight: 600;
+    border:1px solid var(--secondary-color)
+}
+
+.add-operator-add-button{
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+}
+
+
+.manage-operators-list{
+    position: relative;
+   padding: 0;
+    height: 100%;
+}
+
+
+.buttons-with-list{
+   max-height: 100%;
+   background-color: var(--light-color);
+}
+
+.manage-operators-list-item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-transform: capitalize;
+    gap:3em;
+    font-family: var(--font-family-default);
+    color: var(--secondary-color);
+    font-weight: 600;
+    padding: 1em 2em;
+}
+
+
+.manage-operators-button-container, .manage-operators-search-form{
+    padding: 1em 1em;
+    position: sticky;
+    background-color: var(--secondary-color);
+    top: 0;
+    width: 100%;
+    justify-self: center;
+   display: flex;
+   flex-direction: row;
+   gap:1em;
+    justify-content: center;
+    margin-bottom: 1em;
+    z-index: 5;
+
+}
+
+.manage-operators-button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0.5em 0em;
+}
+
+.manage-operators-search-form input{
+    padding: 5px 10px;
+    border-radius: 999px;
+}
+
+.manage-operators-list-item:active{
+    scale: 1.1;
+    background-color: var(--secondary-color);
+        color:var(--light-color);
+}
+
+@media(any-hover: hover){
+    .manage-operators-list-item:hover{
+        background-color: var(--secondary-color);
+        color:var(--light-color);
+        cursor: pointer;
+        
+    }
+
+    .add-operator-add-button:hover{
+        background-color: var(--light-color);
+        color: var(--secondary-color);
+        cursor: pointer;
+    }
+
+    .add-operator-cancel-button:hover{
+        background-color: var(--background);
+        cursor: pointer;
+    }
+}

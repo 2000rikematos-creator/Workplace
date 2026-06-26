@@ -1,0 +1,14 @@
+**/node_modules/
+
+# Ignora as pastas de build em qualquer subpasta
+**/dist/
+**/build/
+
+# Ignora ficheiros .env em qualquer subpasta
+**/.env
+**/.env.local
+**/.env.production
+
+# Ficheiros do sistema operativo
+.DS_Store
+Thumbs.db

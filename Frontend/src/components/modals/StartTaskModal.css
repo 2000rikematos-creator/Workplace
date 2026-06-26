@@ -1,0 +1,103 @@
+.form-container{
+    background-color: white;
+    border-radius: 15px;
+    font-family: var(--font-family-default);
+    color:var(--secondary-color);
+    gap:20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20em;
+    height: 20em;
+}
+
+.form-container h1{
+position: relative;
+border-radius:15px 15px 0px 0px;
+height: fit-content;
+padding:0.5em 0em;
+display: flex;
+flex-direction: column;
+justify-content: center;
+text-align: center;
+justify-self: flex-start;
+background-color: var(--secondary-color);
+color: white;
+width: 100%;
+}
+
+.search-operator-form input{
+    border-radius: 15px;
+    padding: 5px 10px;
+}
+
+.search-operator-form input{
+    width: 88%;
+}
+
+.search-operator-form-with-results{
+    border-radius: 15px 15px 15px 15px;
+    display: flex;
+    flex-direction: column;
+    gap:0px;
+    background-color: rgba(0, 0, 0, 0.2);
+    max-height: 100%;
+}
+
+.operators-coresponding-list{
+    background-color: transparent;
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    overflow-y: scroll;
+}
+
+.operators-coresponding-list::-webkit-scrollbar {
+  background:transparent;
+  width: 6px; /* Uma barra super fininha */
+}
+.operators-coresponding-list::-webkit-scrollbar-track {
+  background: transparent; /* Cor igual ao fundo da tua sidebar */
+}
+.operators-coresponding-list::-webkit-scrollbar-thumb {
+  background: var(--secondary-color); /* Um cinzento escuro discreto para o manípulo */
+  border-radius: 99px;
+}
+
+.operators-coresponding-list-item{
+    gap:1em;
+    max-width: 100%;
+    text-transform: capitalize;
+    border-radius: 15px;
+    font-family: var(--font-family-default);
+    font-weight: 600;
+    color: var(--secondary-color);
+    padding: 5px 10px;
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.operators-coresponding-list-item:active{
+    background-color: var(--secondary-color);
+        color: white;
+scale: 1.1;
+}
+
+
+@media(any-hover: hover){
+    .operators-coresponding-list-item:hover{
+        cursor: pointer;
+        background-color: var(--secondary-color);
+        color: white;
+    }
+}
+
+.operators-coresponding-list-item-name{
+    width: 100%;
+    text-align: start;
+}

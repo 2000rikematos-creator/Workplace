@@ -1,0 +1,155 @@
+.manage-tasks-container{
+    font-family: var(--font-family-default);
+    background-color: var(--light-color);
+    width: fit-content;
+}
+
+
+
+.current-tasks-list{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.settings-header{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+    width: auto;
+    position: sticky;
+    top: 0;
+    background-color: var(--secondary-color);
+    padding: 1em;
+    
+}
+
+
+
+.manage-tasks-add-task-form{
+    width: 100%;
+    padding: 1em 0em;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+   
+    gap:1em;
+}
+.add-task-form{
+    width: fit-content;
+    
+}
+
+.manage-tasks-add-task-form input{
+    border-radius: 999px;
+    border: 1px solid gray;
+    padding: 0.5em 1em;
+}
+
+.manage-tasks-add-task-form-button-container{
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.manage-tasks-add-task-form-button-container button{
+    font-family: var(--font-family-default);
+    border-radius: 999px;
+    padding: 0.5em 1em;
+    border: 1px solid var(--secondary-color);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.manage-tasks-add-task-form-button-container button:active{
+    scale: 1.1;
+}
+
+.manage-tasks-add-task-form-cancel-button{
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+    border: 1px solid var(--light-color);
+}
+
+.current-task-list-item{
+    font-weight: 500;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap:3em;
+    padding: 1em 1em;
+}
+
+.current-task-list-item:active{
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+}
+
+.delete-task-button{
+    border-radius: 50%;
+    padding: 1em;
+}
+
+.delete-task-button:active{
+    scale: 1.1;
+}
+
+
+
+@media(any-hover: hover){
+    .manage-tasks-add-task-form-button-container button:hover{
+        cursor: pointer;
+        background-color: var(--secondary-color);
+        color: var(--light-color);
+        border: 1px solid var(--light-color);
+    }
+
+    .manage-tasks-add-task-form-cancel-button:hover{
+        background-color: var(--background);
+        color: var(--secondary-color);
+    }
+
+    .current-task-list-item:hover{
+        background-color: var(--secondary-color);
+        color: var(--light-color);
+    }
+
+    .delete-task-button:hover{
+        cursor: pointer;
+        background-color: var(--light-color);
+        stroke: var(--secondary-color);
+    }
+}
+
+@media(max-width:650px){
+    .manage-tasks-container{
+        width: 80vw;
+    }
+
+    .settings-header{
+        justify-content: center;
+    }
+
+    .add-task-form{
+        text-align: center;
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+    }
+    .manage-tasks-add-task-form{
+        align-self: center;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .manage-tasks-add-task-form input{
+        padding: 0.5em 1em;
+    }
+}
+
+

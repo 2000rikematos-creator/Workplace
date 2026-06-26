@@ -1,0 +1,20 @@
+.search-icon, .add-icon{
+    stroke: var(--light-color);
+    height: 2em;
+    width: 2em;
+    stroke-width: 3;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.search-icon:active, .add-icon:active{
+    scale: 1.2;
+}
+
+@media(any-hover: hover){
+    .search-icon:hover, .add-icon:hover{
+        background-color: var(--light-color);
+        stroke: var(--secondary-color);
+        cursor: pointer;
+    }
+}

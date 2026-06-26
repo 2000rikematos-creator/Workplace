@@ -1,0 +1,16 @@
+.page-layout{
+    position: relative;
+    top:0em;
+    display: grid;
+    grid-template-columns:auto 1fr;
+    grid-template-rows: auto;
+    min-height:100vh;
+    width: auto;
+    background-color: var(--background);
+}
+
+@media(max-width:900px){
+    .page-layout{
+        grid-template-columns: 100vw;
+    }
+}

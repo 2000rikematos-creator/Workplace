@@ -1,0 +1,48 @@
+.control-panel-options-list-item{
+    height: 3em;
+    width: 100%;
+    font-size: 1.5em;
+    text-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: white;
+    font-family: var(--font-family-default);
+    font-weight: 600;
+    padding: 0em 1em;
+    
+}
+
+.control-panel-options-list{
+    position: relative;
+    top:2em;
+    width: fit-content;
+    max-width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.control-panel-options-list-item:active{
+    scale: 1.1;
+    background-color: var(--light-color);
+    color: var(--secondary-color);
+}
+
+@media(any-hover: hover){
+    .control-panel-options-list-item:hover{
+        background-color: var(--light-color);
+        color: var(--secondary-color);
+        cursor: pointer;
+    }
+}
+
+@media(max-width:650px){
+    .control-panel-options-list{
+        width: 100%;
+    }
+}

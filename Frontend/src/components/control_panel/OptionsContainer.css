@@ -1,0 +1,33 @@
+.options-container{
+  padding: 0px;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    max-height: 80vh;
+    width: fit-content;
+    max-width: 50%;
+    background-color: var(--light-color);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -1px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.options-container::-webkit-scrollbar {
+background-color: transparent;
+  width: 3px; 
+}
+.options-container::-webkit-scrollbar-track {
+  background-color: transparent ;
+}
+.options-container::-webkit-scrollbar-thumb {
+  background: var(--secondary-color); 
+  border-radius: 15px;
+}
+
+@media(max-width:900px){
+  .options-container{
+    max-width: 100vw;
+  }
+}

@@ -1,0 +1,147 @@
+.active-task{
+    color: var(--secondary-color);
+    padding: 20px;
+    height: 100px;
+    width: 150px;
+    background-color: #ffffff;
+    list-style-type:none ;
+    border-radius: 15px;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -1px rgba(0, 0, 0, 0.1);
+    font-family: var(--font-family-default);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap:5px;
+}
+
+.name-with-timer{
+    display: flex;
+    flex-direction: column;
+    gap:0.5em;
+}
+
+.name-and-internal-number-container{
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+.active-task h3{
+    text-transform: capitalize;
+    font-weight: 600;
+}
+
+.active-task h4{
+    font-size: 10px;
+    letter-spacing: 1px;
+    border: 1px solid black;
+    width: fit-content;
+    height: fit-content;
+    padding: 4px 12px;
+    margin-top: 4px;
+    border-radius: 9999px;
+    background-color: var(--secondary-color);
+    color: white;
+}
+.active-task-internal-number{
+    align-self: center;
+    color: #64748b;
+    font-size: 15px;
+}
+
+.end-task-button{
+    position: relative;
+    left: 62%;
+    font-size: 0.75em;
+    font-weight: 600;
+    border: 1px solid var(--default-green);
+    width: fit-content;
+    height: fit-content;
+    padding: 5px;
+    padding-right:10px;
+    padding-left: 10px;
+    border-radius: 9999px;
+    background-color: var(--default-light-green);
+    color: var(--default-green);
+}
+
+.end-task-button:active{
+    border: 1px solid var(--default-orange);
+    background-color: var(--default-light-orange);
+    color: var(--default-light-orange); 
+    scale: 1.1;
+}
+
+
+.timer-container p{
+    color: #64748b;
+}
+
+@media(any-hover: hover){
+    .end-task-button:hover{
+        cursor: pointer;
+       border: 1px solid var(--default-orange);
+       background-color: var(--default-light-orange);
+       color: var(--default-orange); 
+    }
+}
+
+
+@media(max-width:650px){
+
+    .name-with-timer{
+        max-width: 30%;
+        gap: 5px;
+        font-size: 10px;
+    }
+
+.end-task-button{
+    position: relative;
+    left:3%;
+    font-size: 1.2em;
+}    
+
+
+    .active-task{
+        border-radius: 9999px;
+        width: 75vw;
+        height: 0.75em;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 80%;
+    }
+
+    .active-task h3{
+    min-width: max-content;
+}
+
+.active-task h4{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: fit-content;
+    text-wrap: nowrap;
+    top:-2px;
+   padding: 8px 15px;
+   max-width: 25%;
+   max-height: 1.2em;
+
+
+}
+.active-task-internal-number{
+    text-align: start;
+    font-size: 10px;
+}
+
+.name-and-internal-number-container{
+    display: flex;
+    flex-direction: row;
+}
+
+}
