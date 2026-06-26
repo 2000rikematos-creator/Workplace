@@ -226,7 +226,7 @@ async function initializeEnv(){
 
   async function verifySession(){
         try{
-            const response = await fetch(`${backendUrl}settings/verify-session`,{headers:{"Authorization":`Bearer ${token}`}})
+            const response = await fetch(`${backendUrl}/settings/verify-session`,{headers:{"Authorization":`Bearer ${token}`}})
             const responseData:apiResponseData = await response.json()
             if(!response.ok){throw new Error(responseData.message)}
         }catch(error){
