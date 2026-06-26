@@ -3,6 +3,9 @@ import {type token as tokenType } from "../types/types.js"
 import jwt from "jsonwebtoken"
 import httpError from "../utils/customError.js"
 import { AuthMiddlewareRequest } from "../types/types.js"
+import dotenv from "dotenv"
+
+dotenv.config()
 
 function auth(req:AuthMiddlewareRequest,res:Response,next:NextFunction){
     const secret = process.env.SECRET_TOKEN_KEY
