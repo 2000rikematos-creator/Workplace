@@ -4,7 +4,7 @@
     display: grid;
     grid-template-columns:auto 1fr;
     grid-template-rows: auto;
-    min-height:100vh;
+    height: 100dvh;
     width: auto;
     background-color: var(--background);
 }
