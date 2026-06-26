@@ -67,7 +67,7 @@ aside::-webkit-scrollbar-thumb {
     }
 
     .control-panel-menu{
-      position: fixed;
+      position: sticky;
       top:0em;
       max-width: 100%;
       width: 100%;
