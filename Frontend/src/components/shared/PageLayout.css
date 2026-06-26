@@ -12,5 +12,6 @@
 @media(max-width:900px){
     .page-layout{
         grid-template-columns: 100vw;
+        height: 100dvh;
     }
 }

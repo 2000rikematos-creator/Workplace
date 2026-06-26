@@ -67,10 +67,11 @@ aside::-webkit-scrollbar-thumb {
     }
 
     .control-panel-menu{
-      position: sticky;
+      position: fixed;
       top:0em;
       max-width: 100%;
       width: 100%;
+      height: 100%;
       overflow-y: auto;
       overflow-x: hidden;
     }
