@@ -1,6 +1,6 @@
 nav{
     z-index: 100;
-    position: sticky;
+    position: absolute;
     top: 0em;
     left: 0em;
     height: 4em;
@@ -69,7 +69,7 @@ nav{
 @media(max-width:650px){
     
 nav{
-    position: sticky;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100dvw;

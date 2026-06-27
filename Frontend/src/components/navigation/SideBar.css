@@ -1,7 +1,7 @@
 aside{
     z-index: 999;
     grid-column: 1/2;
-    position: sticky;
+    position: relative;
     margin-top: 0%;
     height: 100dvh;
     width: fit-content;
@@ -40,10 +40,10 @@ aside::-webkit-scrollbar-thumb {
 @media(max-width:900px){
   aside{
     position: absolute;
-    top:4em;
+    top:0em;
   }
   .control-panel-menu{
-    position: sticky;
+    position: absolute;
     top: 0;
     box-shadow: 0 0 15px -10px rgba(0, 0, 0, 1);
     box-shadow: 

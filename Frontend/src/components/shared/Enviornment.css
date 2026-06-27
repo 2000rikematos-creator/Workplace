@@ -4,7 +4,7 @@
     position: relative;
     top:0em;
     height:auto;
-    max-height: 100dvh;
+    max-height: 85dvh;
     display: flex;
     flex-direction: row;
     gap:20px;
