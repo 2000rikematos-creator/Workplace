@@ -3,7 +3,7 @@
     width: auto;
     position: relative;
     top:0em;
-    min-height:90dvh;
+    height:auto;
     display: flex;
     flex-direction: row;
     gap:20px;

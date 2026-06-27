@@ -4,7 +4,7 @@ nav{
     top: 0em;
     left: 0em;
     height: 4em;
-    width: 100vw;
+    width: 100dvw;
     background-color: var(--main-color);
     overflow: hidden;
 }
@@ -65,7 +65,7 @@ nav{
 @media(max-width:650px){
     
 nav{
-    width: 100vw;
+    width: 100dvw;
 }
 
 

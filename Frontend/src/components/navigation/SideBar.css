@@ -57,7 +57,7 @@ aside::-webkit-scrollbar-thumb {
     aside{
         z-index: 1000;
         position: fixed;
-        max-width: 100%;
+        max-width: 100dvw;
         top: 4em;
         box-shadow: 0 0 15px -10px rgba(0, 0, 0, 1);
         box-shadow: 
@@ -67,10 +67,10 @@ aside::-webkit-scrollbar-thumb {
     }
 
     .control-panel-menu{
-      position: relative;
-      top:0em;
-      max-width: 100%;
-      width: 100%;
+      position: sticky;
+      top: 0;
+      max-width: 100dvw;
+      width: 100dvw;
       height: 100dvh;
       overflow-y: auto;
       overflow-x: hidden;
