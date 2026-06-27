@@ -4,7 +4,8 @@
     display: grid;
     grid-template-columns:auto 1fr;
     grid-template-rows: auto;
-    height: 100dvh;
+    height: auto;
+    max-height: 100dvh;
     width: auto;
     background-color: var(--background);
 }
@@ -12,6 +13,6 @@
 @media(max-width:900px){
     .page-layout{
         grid-template-columns: 100vw;
-        height: 100dvh;
+        height: 95dvh;
     }
 }

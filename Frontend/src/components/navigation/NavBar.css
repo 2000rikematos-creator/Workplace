@@ -65,6 +65,9 @@ nav{
 @media(max-width:650px){
     
 nav{
+    position: sticky;
+    top: 0;
+    left: 0;
     width: 100dvw;
 }
 

@@ -4,12 +4,13 @@
     position: relative;
     top:0em;
     height:auto;
+    max-height: 100dvh;
     display: flex;
     flex-direction: row;
     gap:20px;
     margin: 0;
     grid-column: 2/2;
-     overflow-y: scroll;
+     overflow-y: auto;
      overflow-x: hidden;
     
 }
