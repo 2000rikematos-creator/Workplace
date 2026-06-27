@@ -6,7 +6,7 @@ nav{
     height: 4em;
     width: 100dvw;
     background-color: var(--main-color);
-    overflow: hidden;
+    overflow: visible;
 }
 
 
@@ -61,6 +61,10 @@ nav{
     gap:15px;
 }
 
+.options-sidebar{
+    position: absolute;
+    top:4em;
+}
 
 @media(max-width:650px){
     
