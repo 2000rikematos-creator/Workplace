@@ -8,12 +8,16 @@
     gap:30px;
     width: auto;
     height: fit-content;
-    padding-left: 0;
+    padding: 2em;
 }
 
 @media(max-width:650px){
     .active-tasks-list{
+        position: relative;
+        top:4em;
         flex-direction: column;
         width: 85vw;
+        height: fit-content;
+        margin-bottom: 10em;
     }
 }

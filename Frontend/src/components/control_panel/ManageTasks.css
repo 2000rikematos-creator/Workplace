@@ -128,7 +128,7 @@
 
 @media(max-width:650px){
     .manage-tasks-container{
-        width: 80vw;
+        width: 100dvw;
     }
 
     .settings-header{
