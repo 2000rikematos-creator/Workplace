@@ -16,6 +16,7 @@
 .workplace-settings-form .submit-login-button{
     font-family: var(--font-family-default);
     color: var(--main-color);
+    background-color: var(--light-color);
     font-weight: 600;
     font-size: 15px;
     margin-top: 1em;

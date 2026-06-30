@@ -1,4 +1,6 @@
 .confirmation-modal{
+    height: fit-content;
+    width: fit-content;
     background-color: white;
     border-radius: 15px;
     font-family: var(--font-family-default);
@@ -7,12 +9,12 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    height:auto ;
+
 
 }
 
 .confirmation-modal h1{
-    padding: 1em 2em;
+    padding: 1em;
 }
 
 .confirmation-modal-button-container{
@@ -90,7 +92,6 @@ scale: 1.1;
 @media(max-width:650px){
     .confirmation-modal{
        text-align: center;
-        width: 70vw;
     }
 
     .confirmation-modal button{

@@ -87,7 +87,6 @@ function LandingPage(){
 
   return <PageLayout>
     <LandingPageContainer>
-        <div className="logo-image-landing-page"></div>
         <LoadingModal isShowing={isLoading} />
         <ErrorModal errorMessage={errorMessage} onClosing={()=>setErrorMessage("")}/>
         <OpenWorkplace submitLoginInfo={handleSubmitLoginInfo} isShowing={isOpeningWorkplace}/>

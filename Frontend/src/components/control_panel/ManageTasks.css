@@ -1,7 +1,7 @@
 .manage-tasks-container{
     font-family: var(--font-family-default);
     background-color: var(--light-color);
-    width: fit-content;
+    width: 100%;
 }
 
 
@@ -128,7 +128,7 @@
 
 @media(max-width:650px){
     .manage-tasks-container{
-        width: 100dvw;
+        width: 100%;
     }
 
     .settings-header{
