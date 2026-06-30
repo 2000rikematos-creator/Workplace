@@ -7,11 +7,11 @@
     color: white;
      font-family: var(--font-family-default);
      justify-content: start;
-     width: 80%;
+     width: 100%;
      max-width: 100%;
      white-space: nowrap;
-   padding: 0em 2em;
-   padding-left: 1em;
+   padding: 0em 3em;
+   padding-left: 5em;
 }
 
 .task-list-item:active{

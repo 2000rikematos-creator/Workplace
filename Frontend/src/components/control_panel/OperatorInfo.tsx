@@ -59,7 +59,7 @@ function OperatorInfo({ operatorSelected, closeDetails, deleteOperator, editOper
     setConfirmationQuestion("")
   }
 
-  return <OptionsContainer>
+  return <OptionsContainer className="operator-info-wrapper">
     <ConfirmationModal question={confirmationQuestion} handleConfirm={()=>confirmAction()} handleCancel={()=>{setConfirmationQuestion(""); setCurrentAction(undefined)}}/>
 
     <div className="operator-info">

@@ -407,6 +407,7 @@ return <PageLayout>
            <OperatorInfo isEditing={!successUpdatingOperator} handleEditOperatorButton={(yn:boolean)=>{setSuccessUpdatingOperator(!yn)}} editOperator={handleEditOperator} deleteOperator={handleDeleteOperator} closeDetails={()=>setSelectedOperator(undefined)} operatorSelected={selectedOption === optionsList[0] ? selectedOperator : undefined}/> </React.Fragment>} 
           
            {context?.workplaceData ? <ChangeCredentials
+           windowWidth = {props.windowWidth}
             successUpdating={successUpdatingCreds}
              isShowing={selectedOption === optionsList[2]}
               workplaceData={context.workplaceData} 

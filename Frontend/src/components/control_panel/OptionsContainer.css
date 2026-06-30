@@ -1,12 +1,13 @@
+
+
 .options-container{
+  flex: 1;
   margin-left: 1px;
+  max-height: fit-content;
   position: sticky;
   padding: 0px;
     display: flex;
     flex-direction: column;
-    height: fit-content;
-    max-height: 100vh;
-    width: fit-content;
     max-width: 50%;
     background-color: var(--light-color);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05),
@@ -14,6 +15,11 @@
     border-radius: 0px;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+.operator-info-wrapper{
+  max-width: fit-content;
+  max-height: 50%;
 }
 
 .options-container::-webkit-scrollbar {

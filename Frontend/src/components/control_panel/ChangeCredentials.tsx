@@ -11,7 +11,8 @@ interface ChangeCredentialsProps {
     updateData:(data:Required<Pick<WorkplaceCreds,"companyName"|"id"|"loginName">>)=>void
     updateManagerPassword:(data:{currentManagerPassword:string,newManagerPassword:string,repeatNewManagerPassword:string})=>void
     updateOperatorPassword:(data:{currentOperatorPassword:string,newOperatorPassword:string,repeatNewOperatorPassword:string})=>void
-    successUpdating:boolean|undefined
+    successUpdating:boolean|undefined;
+    windowWidth:number;
 }
 
 
@@ -107,21 +108,22 @@ if(!props.isShowing){return null}
           handleCancel={handleCancelSubmit}
            handleConfirm={()=>handleSubmit(confirmingType!)}/>
         <ErrorModal errorMessage={errorMessage} onClosing={()=>setErrorMessage("")}/>
-        <OptionsContainer>
-      {window.innerWidth<650 ? !selectedOption ? <div className="change-credencials-container">
+            
+            {props.windowWidth<900 ? !selectedOption ? <OptionsContainer>
+       <div className="change-credencials-container">
             <div className="settings-header"><h2>Alterar Credenciais</h2></div>
             <ul className="change-credentials-options-list">
                 {options.map((item)=><li className="change-credentials-options-list-item" onClick={()=>handleSelectOption(item)}>{item}</li>)}
             </ul>
             
-        </div> : null :<div className="change-credencials-container">
+        </div> </OptionsContainer> : null : <OptionsContainer><div className="change-credencials-container">
             <div className="settings-header"><h2>Alterar Credenciais</h2></div>
             <ul className="change-credentials-options-list">
                 {options.map((item)=><li className="change-credentials-options-list-item" onClick={()=>handleSelectOption(item)}>{item}</li>)}
             </ul>
-            
-        </div>}      
-    </OptionsContainer>
+        </div>    
+    </OptionsContainer>}
+
     {!selectedOption ? null : <OptionsContainer>
     {selectedOption === options[0] ? <div className="change-company-name-container change-selected-option-container">
         <div className="settings-header"><h2>Alterar nome da empresa</h2></div>
