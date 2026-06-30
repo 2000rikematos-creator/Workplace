@@ -45,6 +45,11 @@ background-color: transparent;
     padding-bottom: 2em;
     
   }
+
+  .operator-info-wrapper{
+    flex: 1;
+    max-height: fit-content;
+  }
 }
 
 @media(max-width:650px){
