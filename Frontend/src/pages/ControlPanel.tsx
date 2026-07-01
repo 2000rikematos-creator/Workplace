@@ -12,7 +12,6 @@ import ErrorModal from "../components/modals/ErrorModal";
 import { AuthContext } from "../context/AuthContext";
 import ChangeCredentials from "../components/control_panel/ChangeCredentials";
 import MessageModal from "../components/modals/MessageModal";
-import "./ControlPanel.css"
 import { useNavigate } from "react-router";
 
 interface ControlPanelProps {

@@ -20,7 +20,6 @@
     gap:1em;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1em;
 }
 
 .add-operator-input{
@@ -129,4 +128,12 @@ border: 1px solid gray;
         background-color: var(--background);
         cursor: pointer;
     }
+}
+
+@media(max-width:900px){
+    .settings-header{
+        text-align: center;
+        justify-content: center;
+        align-items: center
+    };
 }

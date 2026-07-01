@@ -1,9 +1,9 @@
 nav{
     z-index: 100;
-    position: sticky;
+    position: absolute;
     top: 0em;
     left: 0em;
-    height: 10dvh;
+    height: 10%;
     min-height: 4em;
     width: 100dvw;
     background-color: var(--main-color);
@@ -62,10 +62,7 @@ nav{
     gap:15px;
 }
 
-.options-sidebar{
-    position: absolute;
-    top:4em;
-}
+
 
 @media(max-width:650px){
     

@@ -12,10 +12,16 @@
     margin-bottom: 5em;
 }
 
+@media(max-width:900px){
+    .active-tasks-list{
+        justify-content: center
+    };
+}
+
 @media(max-width:650px){
     .active-tasks-list{
         position: relative;
-        top:4em;
+        top:0em;
         flex-direction: column;
         width: 85vw;
         height: fit-content;
