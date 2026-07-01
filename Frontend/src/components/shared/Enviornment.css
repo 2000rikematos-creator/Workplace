@@ -1,5 +1,5 @@
 .enviornment{
-    height:calc(100% - 4em) ;
+    height:calc(100dvh - 4em) ;
     padding: 0em;
     width: auto;
     position: relative;

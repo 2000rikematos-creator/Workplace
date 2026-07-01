@@ -1,7 +1,7 @@
 aside{
   position: relative;
   top: 4em;
-  height:calc(100% - 4em) ;
+  height:calc(100dvh - 4em) ;
     z-index: 999;
     grid-column: 1/2;
     position: relative;
@@ -39,9 +39,9 @@ aside::-webkit-scrollbar-thumb {
 }
 
 .options-sidebar{
-  position: sticky;
-  top: max(10%,4em);
-  height:calc(100% - 4em) ;
+  position: absolute;
+  top: 4em;
+  height:calc(100dvh - 4em) ;
 }
 
 @media(max-width:900px){
@@ -51,7 +51,6 @@ aside::-webkit-scrollbar-thumb {
     width: 100vw;
   }
   .control-panel-menu{
-    max-height: 90dvh;
     overflow-y: auto;
     height: 90dvh;
     box-shadow: 0 0 15px -10px rgba(0, 0, 0, 1);
@@ -79,7 +78,7 @@ aside::-webkit-scrollbar-thumb {
 
     .control-panel-menu{
       position: absolute;
-      top: max(10%,4em);
+      top: 4em;
       max-width: 100dvw;
       width: 100dvw;
      height:calc(100% - 4em) ;
