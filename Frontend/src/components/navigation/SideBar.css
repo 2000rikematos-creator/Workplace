@@ -47,7 +47,7 @@ aside::-webkit-scrollbar-thumb {
 @media(max-width:900px){
   aside{
     position: absolute;
-    top:max(10%,4em);
+    top:4em;
     width: 100vw;
   }
   .control-panel-menu{
