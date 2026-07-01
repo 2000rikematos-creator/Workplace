@@ -52,7 +52,7 @@ aside::-webkit-scrollbar-thumb {
   }
   .control-panel-menu{
     overflow-y: auto;
-    height: 90dvh;
+    height: calc(100dvh - 4em);
     box-shadow: 0 0 15px -10px rgba(0, 0, 0, 1);
     box-shadow: 
     -5px 0 5px -3px rgba(0, 0, 0, 0.2), /* Sombra da Esquerda (X negativo) */

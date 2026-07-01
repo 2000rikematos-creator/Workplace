@@ -41,7 +41,7 @@
     border: 1px solid black;
     width: fit-content;
     height: fit-content;
-    padding: 4px 12px;
+    padding: 4px 15px;
     margin-top: 4px;
     border-radius: 9999px;
     background-color: var(--secondary-color);
@@ -128,7 +128,7 @@
     font-size: fit-content;
     text-wrap: nowrap;
     top:-2px;
-   padding: 8px 15px;
+   padding: 8px 20px;
    max-width: 25%;
    max-height: 1.2em;
 
