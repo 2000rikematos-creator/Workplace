@@ -130,10 +130,3 @@ border: 1px solid gray;
     }
 }
 
-@media(max-width:900px){
-    .settings-header{
-        text-align: center;
-        justify-content: center;
-        align-items: center
-    };
-}

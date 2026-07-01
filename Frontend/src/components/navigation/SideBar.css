@@ -1,7 +1,7 @@
 aside{
   position: relative;
-  top: max(10%,4em);
-  height: 90dvh;
+  top: 4em;
+  height:calc(100% - 4em) ;
     z-index: 999;
     grid-column: 1/2;
     position: relative;
@@ -41,7 +41,7 @@ aside::-webkit-scrollbar-thumb {
 .options-sidebar{
   position: sticky;
   top: max(10%,4em);
-  height: 100dvh;
+  height:calc(100% - 4em) ;
 }
 
 @media(max-width:900px){
@@ -67,7 +67,7 @@ aside::-webkit-scrollbar-thumb {
         z-index: 1000;
         position: absolute;
         width: 100dvw;
-        top: max(10%,4em);
+        top: 4em;
         box-shadow: 0 0 15px -10px rgba(0, 0, 0, 1);
         box-shadow: 
     -5px 0 5px -3px rgba(0, 0, 0, 0.2), /* Sombra da Esquerda (X negativo) */
@@ -82,7 +82,7 @@ aside::-webkit-scrollbar-thumb {
       top: max(10%,4em);
       max-width: 100dvw;
       width: 100dvw;
-      height: 90dvh;
+     height:calc(100% - 4em) ;
       overflow-y: auto;
       overflow-x: hidden;
     }
@@ -90,6 +90,6 @@ aside::-webkit-scrollbar-thumb {
 
 @media(max-height:526px){
   aside{
-    height: 90dvh;
+    height:calc(100% - 4em) ;
   }
 }

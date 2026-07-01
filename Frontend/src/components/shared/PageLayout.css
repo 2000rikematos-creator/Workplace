@@ -1,5 +1,5 @@
 .page-layout{
-    position: relative;
+    position: absolute;
     top:0em;
     display: grid;
     grid-template-columns:auto 1fr;

@@ -1,9 +1,9 @@
 .enviornment{
-    height: 90dvh;
+    height:calc(100% - 4em) ;
     padding: 0em;
     width: auto;
     position: relative;
-    top:max(10%,4em);
+    top:4em;
     display: flex;
     flex-direction: row;
     gap:1px;
@@ -27,9 +27,6 @@
 
 @media(max-width:900px){
     .enviornment{
-      position: relative;
-      height: 90dvh;
-      top: max(10%,4em);
         grid-column: 1/2;
         max-width: 100vw;
         display: flex;
