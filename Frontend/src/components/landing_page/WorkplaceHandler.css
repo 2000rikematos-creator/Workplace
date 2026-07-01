@@ -85,6 +85,14 @@
 }
 
 @media(max-height:526px){
+    .selector-container{
+        gap: 1em;
+    }
+
+    .workplace-handler{
+        gap:1em;
+    }
+
     .landing-page-logo-container img{
         width: 20%;
     }

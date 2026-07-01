@@ -1,5 +1,5 @@
 aside{
-  height: 100dvh;
+  height: 90dvh;
     z-index: 999;
     grid-column: 1/2;
     position: relative;
@@ -39,19 +39,14 @@ aside::-webkit-scrollbar-thumb {
 
 @media(max-width:900px){
   aside{
-    flex: 1;
     position: absolute;
     top:0em;
     width: 100vw;
   }
   .control-panel-menu{
-    position: absolute;
-    max-height: 100dvh;
-    width: 100vw;
+    max-height: 90dvh;
     overflow-y: auto;
-    top: 0em;
-    height: 100dvh;
-    max-height: 100dvh;
+    height: 90dvh;
     box-shadow: 0 0 15px -10px rgba(0, 0, 0, 1);
     box-shadow: 
     -5px 0 5px -3px rgba(0, 0, 0, 0.2), /* Sombra da Esquerda (X negativo) */
@@ -65,7 +60,7 @@ aside::-webkit-scrollbar-thumb {
         z-index: 1000;
         position: absolute;
         width: 100dvw;
-        top: 4em;
+        top: max(10%,4em);
         box-shadow: 0 0 15px -10px rgba(0, 0, 0, 1);
         box-shadow: 
     -5px 0 5px -3px rgba(0, 0, 0, 0.2), /* Sombra da Esquerda (X negativo) */
@@ -75,12 +70,17 @@ aside::-webkit-scrollbar-thumb {
 
     .control-panel-menu{
       position: absolute;
-      top: 4em;
+      top: max(10%,4em);
       max-width: 100dvw;
       width: 100dvw;
-      height: 100dvh;
-      max-height: 100dvh;
+      height: 90dvh;
       overflow-y: auto;
       overflow-x: hidden;
     }
+}
+
+@media(max-height:526px){
+  aside{
+    height: 85dvh;
+  }
 }

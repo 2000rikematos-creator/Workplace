@@ -21,7 +21,7 @@ color:var(--main-color);
 }
 
 .task-list-item:active .task-name{
-    scale: 1.2;
+    scale: 1.1;
 }
 
 
