@@ -93,11 +93,7 @@
 
 @media(max-width:650px){
 
-    .name-with-timer{
-        max-width: 30%;
-        gap: 5px;
-        font-size: 10px;
-    }
+    
 
 .end-task-button{
     position: relative;
@@ -111,7 +107,7 @@
         width: 75vw;
         height: 0.75em;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: center;
         font-size: 80%;
     }
@@ -120,13 +116,23 @@
     min-width: max-content;
 }
 
+.name-with-timer{
+    margin-right: auto;
+        justify-self: flex-start;
+        max-width: 30%;
+        gap: 5px;
+        font-size: 10px;
+    }
+
 .active-task h4{
+    justify-self: flex-end;
     position: relative;
     display: flex;
-    align-items: center;
-    justify-content: center;
     font-size: fit-content;
     text-wrap: nowrap;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
     top:-2px;
    padding: 8px 20px;
    max-width: 25%;
