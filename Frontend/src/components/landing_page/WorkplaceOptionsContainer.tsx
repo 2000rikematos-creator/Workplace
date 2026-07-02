@@ -8,7 +8,7 @@ type WorkPlaceOptionsContainerProps = {
 
 function WorkPlaceOptionsContainer(props:WorkPlaceOptionsContainerProps){
     return <div className="workplace-options-container">
-        <div className="login-logo-container"> <img src={logo} alt="logo" /> </div>
+        <div className="login-logo-container"> <img src={logo} alt="company-logo" /> </div>
 {props.children}
     </div>
 }

@@ -47,13 +47,11 @@ function HomePage(props:HomePageProps){
             }catch(error){
                 if(error instanceof Error){
             if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error")
             }else{
                setErrorMessage(error.message) 
             }
-                }else{
-                    setErrorMessage("ocorreu um erro ao obter as tarefas ativas")
-                }  
+            }
             }
         }
 
@@ -66,12 +64,10 @@ function HomePage(props:HomePageProps){
             }catch(error){
                 if(error instanceof Error){
                     if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error")
             }else{
                setErrorMessage(error.message) 
             }
-                }else{
-                    setErrorMessage("ocorreu um erro ao obter a lista de tarefas")
                 }
             }
         }
@@ -119,12 +115,10 @@ async function initializeEnv(){
             }catch(error){
                 if(error instanceof Error){
                     if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error")
             }else{
                setErrorMessage(error.message) 
             }
-                }else{
-                    setErrorMessage("ocorreu um erro ao obter a lista de operadores")
                 }
             }
         }
@@ -136,13 +130,13 @@ async function initializeEnv(){
                 setIsLoading(true)
                 await getAllOperators()
                 const task = taskArray.find((item)=>item.id === id)
-                if(!task) {throw Error("ocorreu um erro ao selecionar a tarefa")}
+                if(!task) {throw Error("Internal error")}
                  setSelectedTask(task)
                  setStartTaskModalIsOpen(true)
             }catch(error){
                if(error instanceof Error){
                 if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("internal error")
             }else{
                setErrorMessage(error.message) 
             }
@@ -164,7 +158,7 @@ async function initializeEnv(){
         const operatorIsActive = activeTasks.find((item)=>item.operatorId === operatorId)
         if(operatorIsActive){
             setStartTaskModalIsOpen(false);
-             setErrorMessage("Termina primeiro a tarefa atual!");
+             setErrorMessage("Finish the active task first");
               setIsLoading(false)
               return
             }
@@ -179,12 +173,10 @@ async function initializeEnv(){
         }catch(error){
             if(error instanceof Error){
                 if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error")
             }else{
                setErrorMessage(error.message) 
             }
-            }else{
-                setErrorMessage("nao foi possivel adicionar tarefa")
             }
         }finally{
             setIsLoading(false)
@@ -206,12 +198,10 @@ async function initializeEnv(){
         }catch(error){
             if(error instanceof Error){
                 if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error")
             }else{
                setErrorMessage(error.message) 
             }
-            }else{
-                setErrorMessage("ocorreu um erro")
             }
         }finally{
             setIsLoading(false)
@@ -232,12 +222,12 @@ async function initializeEnv(){
         }catch(error){
             if(error instanceof Error){
                 if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error")
             }else{
                setErrorMessage(error.message) 
             }
             }else{
-                setErrorMessage("sessão terminada, por reinicie a sessão")
+                setErrorMessage("Session error")
             }
             
             setTimeout(()=>{setErrorMessage("");context!.logout()},2000)

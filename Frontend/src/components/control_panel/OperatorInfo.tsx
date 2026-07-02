@@ -64,15 +64,15 @@ function OperatorInfo({ operatorSelected, closeDetails, deleteOperator, editOper
 
     <div className="operator-info">
       <div className="operator-info-container">
-        <div className="operator-info-header"> <h2>Informações do colaborador</h2><div className="close-operator-button-container"><CloseIcon className="close-details-button" onClick={closeDetails} /></div>
+        <div className="operator-info-header"> <h2>Team member</h2><div className="close-operator-button-container"><CloseIcon className="close-details-button" onClick={closeDetails} /></div>
         </div>
-        {isEditing ? <form className="edit-details-form" onSubmit={(e)=>{e.preventDefault();setCurrentAction("editOperator"); setConfirmationQuestion("Guardar alterações?")}}>
+        {isEditing ? <form className="edit-details-form" onSubmit={(e)=>{e.preventDefault();setCurrentAction("editOperator"); setConfirmationQuestion("Save changes?")}}>
           <input className="edit-detail" type="text" name="firstName" value={input.firstName} onChange={handleChange} />
           <input className="edit-detail" type="text" name="lastName" value={input.lastName} onChange={handleChange} />
           <input className="edit-detail" type="text" name="phone" value={input.phone} onChange={handleChange} />
           <div className="edit-operator-info-button-container">
-            <input className="editing-operator-button save-operator-changes-button" type="submit" value="Guardar"/>
-          <button className="editing-operator-button cancel-operator-changes-button" type="button" onClick={handleCancelbutton}>Cancelar</button>
+            <input className="editing-operator-button save-operator-changes-button" type="submit" value="Save"/>
+          <button className="editing-operator-button cancel-operator-changes-button" type="button" onClick={handleCancelbutton}>Cancel</button>
           </div>
           
         </form> : 

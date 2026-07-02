@@ -15,8 +15,8 @@ if(!props.question){return null}
     <QuestionMark />
     </div> 
     <h1>{props.question}</h1><div className="confirmation-modal-button-container">
-        <button className="confirmation-modal-confirm-button" onClick={()=>props.handleConfirm()}>Confirmar</button>
-            <button className="confirmation-modal-cancel-button" onClick={()=>props.handleCancel()}>Cancelar</button> </div>
+        <button className="confirmation-modal-confirm-button" onClick={()=>props.handleConfirm()}>Confirm</button>
+            <button className="confirmation-modal-cancel-button" onClick={()=>props.handleCancel()}>Cancel</button> </div>
         </div>
 </Modal>
 }

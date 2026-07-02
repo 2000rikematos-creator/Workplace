@@ -4,7 +4,7 @@ import SideBar from "../components/navigation/SideBar";
 import ControlPanelOptions from "../components/control_panel/ControlPanelOptions";
 import Enviornment from "../components/shared/Enviornment";
 import ManageOperators from "../components/control_panel/ManageOperators";
-import type {WorkplaceCreds, apiResponseData, apiResponseDataOperator, apiResponseDataOperatorlist, apiResponseDataTask, apiResponseDataTaskList, newOperator, Operator, Task, apiResponseDataUpdatedData } from "../shared/Types";
+import type {ManageProfileOptionsTypes, WorkplaceCreds, apiResponseData, apiResponseDataOperator, apiResponseDataOperatorlist, apiResponseDataTask, apiResponseDataTaskList, newOperator, Operator, Task, apiResponseDataUpdatedData,ControlPanelOptionsTypes } from "../shared/Types";
 import OperatorInfo from "../components/control_panel/OperatorInfo";
 import ManageTasks from "../components/control_panel/ManageTasks";
 import LoadingModal from "../components/modals/LoadingModal";
@@ -20,13 +20,15 @@ interface ControlPanelProps {
     windowWidth:number;
 }
 
+
+
 function ControlPanel(props:ControlPanelProps){
 
 const [selectedOperator,setSelectedOperator] = useState<Operator|undefined>()
-const optionsList:string[] = ["Gerir colaboradores", "Gerir tarefas","Gerir perfil"]
+const optionsList:ControlPanelOptionsTypes[] = ["Manage staff", "Manage tasks","Manage profile"]
 const [taskList,setTaskList] = useState<Task[]>([])
 const [operatorsList, setOperatorsList] = useState<Operator[]>([])
-const [selectedOption,setSelectedOption] = useState<"Gerir colaboradores"| "Gerir tarefas"|"Gerir perfil"|undefined>("Gerir colaboradores")
+const [selectedOption,setSelectedOption] = useState<ControlPanelOptionsTypes|undefined>("Manage staff")
 const [isLoading, setisLoading] = useState(false)
 const [errorMessage, setErrorMessage] = useState("")
 const [token] = useState(()=>localStorage.getItem("token"))
@@ -49,7 +51,7 @@ useEffect(()=>{
         }catch(error){
             if(error instanceof Error){
             if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error")
             }else{
                setErrorMessage(error.message) 
             }
@@ -74,12 +76,10 @@ useEffect(()=>{
         }catch(error){
             if(error instanceof Error){
                 if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error")
             }else{
                setErrorMessage(error.message) 
             }
-            }else{
-                setErrorMessage("ocorreu um erro ao obter as tarefas")
             }
         }
     }
@@ -94,12 +94,10 @@ useEffect(()=>{
     }catch(error){
         if(error instanceof Error){
             if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error")
             }else{
                setErrorMessage(error.message) 
             }
-        }else{
-            setErrorMessage("ocorreu um erro ao obter a lista de colaboradores")
         }
     }
 }
@@ -114,12 +112,12 @@ useEffect(()=>{
         }catch(error){
             if(error instanceof Error){
               if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error")
             }else{
                setErrorMessage(error.message) 
             } 
             }else{
-                setErrorMessage("Ocorreu um erro")
+                setErrorMessage("Internal error")
             }
             
         }finally{
@@ -134,7 +132,7 @@ useEffect(()=>{
     
 },[selectedOption])
 
-function handleSelectOption(option:"Gerir colaboradores"| "Gerir tarefas"|"Gerir perfil"){
+function handleSelectOption(option:ControlPanelOptionsTypes){
     props.setMenuIsClicked(false);
     setSuccessAddingOperator(true)
     const optionExists = optionsList.find((item)=>item === option)
@@ -156,13 +154,11 @@ async function handleAddOperator(newOperatorDetails:newOperator){
         setSuccessAddingOperator(false)
         if (error instanceof Error ){
             if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error")
             }else{
                setErrorMessage(error.message) 
             }
-        }else{
-            setErrorMessage("ocorreu um erro ao adicionar o colaborador")
-        } 
+        }
     }finally{
         setisLoading(false)
         setTimeout(()=>setMessage(""),1500)
@@ -187,12 +183,10 @@ async function handleDeleteOperator(){
     }catch(error){
         if (error instanceof Error) {
             if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error")
             }else{
                setErrorMessage(error.message) 
             }
-        }else{
-            setErrorMessage("algo correu mal")
         }
     }finally{
         setisLoading(false)
@@ -214,12 +208,10 @@ async function handleEditOperator(editedInput:Required<Pick<Operator, "firstName
     setSuccessUpdatingOperator(false)
     if(error instanceof Error){
         if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error")
             }else{
                setErrorMessage(error.message) 
             }
-    }else{
-        setErrorMessage("ocorreu um erro ao atualizar as informaçoes")
     }
    }finally{
     setisLoading(false)
@@ -240,7 +232,7 @@ async function handleAddNewTask(task:string){
     }catch(error){
         if(error instanceof Error){
             if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error")
             }else{
                setErrorMessage(error.message) 
             }
@@ -263,12 +255,10 @@ async function handleDeleteTask(id:string){
     }catch(error){
         if(error instanceof Error){
             if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error")
             }else{
                setErrorMessage(error.message) 
             }
-        }else{
-            setErrorMessage("ocorreu um erro ao eliminar a tarefa")
         }
     }finally{
         setisLoading(false);
@@ -284,12 +274,12 @@ async function verifySession(){
         }catch(error){
             if(error instanceof Error){
                 if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error")
             }else{
                setErrorMessage(error.message) 
             }
             }else{
-                setErrorMessage("sessão terminada, por reinicie a sessão")
+                setErrorMessage("Session expired please log in again")
             }
             
             setTimeout(()=>context!.logout(),5000)
@@ -317,12 +307,10 @@ async function verifySession(){
         }catch(error){
             if(error instanceof Error){
                 if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error")
             }else{
                setErrorMessage(error.message) 
             }
-            }else{
-                setErrorMessage("ocorreu um a atualizar as informações")
             }
 
         }finally{
@@ -342,12 +330,10 @@ async function verifySession(){
         }catch(error){
             if(error instanceof Error){
                 if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error")
             }else{
                setErrorMessage(error.message) 
             }
-            }else{
-                setErrorMessage("Ocorreu um erro ao alterar a password")
             }
         }finally{
             setisLoading(false)
@@ -366,12 +352,10 @@ async function verifySession(){
         }catch(error){
             if(error instanceof Error){
                 if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error")
             }else{
                setErrorMessage(error.message) 
             }
-            }else{
-                setErrorMessage("Ocorreu um erro ao alterar a password")
             }
         }finally{
             setisLoading(false)
@@ -392,7 +376,6 @@ async function verifySession(){
     try{
         const response = await fetch(`${backendUrl}/settings/delete-profile`,{method:"DELETE",headers:{"Content-Type":"application/json","Authorization":`Bearer ${token}`,"Manager-Authorization":`Bearer ${managerToken}`}})
         const responseData:apiResponseData = await response.json()
-        console.log(responseData)
         if(!response.ok){
             throw Error(responseData.message)
         }

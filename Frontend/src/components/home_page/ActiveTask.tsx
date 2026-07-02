@@ -37,7 +37,7 @@ const [milliseconds,setMilliseconds] = useState<number>(()=>Date.now()-props.tas
       
 
         {props.task.taskName.length>15 ? <h4>{props.task.taskName.slice(0,15)} ...</h4> : <h4>{props.task.taskName}</h4>  }
-        <p className="end-task-button" onClick={handleEndTask}>Terminar</p>
+        <p className="end-task-button" onClick={handleEndTask}>End Task</p>
   
         </li>
 }

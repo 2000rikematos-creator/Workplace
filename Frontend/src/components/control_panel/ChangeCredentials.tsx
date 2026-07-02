@@ -1,5 +1,5 @@
 import ErrorModal from "../modals/ErrorModal";
-import type { WorkplaceCreds } from "../../shared/Types";
+import type { ManageProfileOptionsTypes, WorkplaceCreds } from "../../shared/Types";
 import OptionsContainer from "./OptionsContainer";
 import React, { useState,useEffect } from "react";
 import ConfirmationModal from "../modals/ConfirmationModal";
@@ -16,15 +16,15 @@ interface ChangeCredentialsProps {
     deleteProfile:()=>void;
 }
 
-type Options = "Alterar nome da empresa"|"Alterar nome do login"|"Alterar palavra-passe do responsável"|"Alterar palavra-passe do colaborador"|"Eliminar perfil"
+
 
 
 function ChangeCredentials(props:ChangeCredentialsProps){
 
     if(!props.workplaceData){return null}
 
-    const options:Options[] = ["Alterar nome da empresa","Alterar nome do login","Alterar palavra-passe do responsável","Alterar palavra-passe do colaborador","Eliminar perfil"]
-    const [selectedOption,setSelectedOption] = useState<Options|undefined|null>(props.successUpdating === undefined ? undefined:undefined)
+    const options:ManageProfileOptionsTypes[] = ["Change company name","Change staff username","Change manager password","Change staff password","Delete workplace profile"]
+    const [selectedOption,setSelectedOption] = useState<ManageProfileOptionsTypes|undefined|null>(props.successUpdating === undefined ? undefined:undefined)
     const [errorMessage,setErrorMessage] = useState("")
     const [editWorkplaceData,setEditWorkplaceData] = useState(props.workplaceData)
     const [editManagerPassword,setEditManagerPassword] = useState({currentManagerPassword:"",newManagerPassword:"",repeatNewManagerPassword:""})
@@ -34,9 +34,9 @@ function ChangeCredentials(props:ChangeCredentialsProps){
 
     useEffect(()=>{setSelectedOption((prev)=>props.successUpdating === false ? prev: undefined)},[props.successUpdating])
     
-    function handleSelectOption(option:Options){
-        if(option === "Eliminar perfil"){
-            setConfirmationQuestion("Pretende eliminar permanentemente este perfil e todos os dados a ele associados?")
+    function handleSelectOption(option:ManageProfileOptionsTypes){
+        if(option === "Delete workplace profile"){
+            setConfirmationQuestion("Permanently delete this workplace profile?")
         }
         setEditWorkplaceData(props.workplaceData!);
         setEditManagerPassword({currentManagerPassword:"",newManagerPassword:"",repeatNewManagerPassword:""});
@@ -57,7 +57,7 @@ function ChangeCredentials(props:ChangeCredentialsProps){
 
     function handleConfirmationForSubmition(event:React.SubmitEvent<HTMLFormElement>,option:"data"|"managerPassword"|"operatorPassword"){
         event.preventDefault()
-        setConfirmationQuestion("Guardar alterações?")
+        setConfirmationQuestion("Save changes?")
         setConfirmingType(option)
     }
 
@@ -70,17 +70,17 @@ function ChangeCredentials(props:ChangeCredentialsProps){
             if(option === "data"){
           props.updateData(editWorkplaceData)
         }else if(option === "managerPassword"){
-            if(editManagerPassword.newManagerPassword !== editManagerPassword.repeatNewManagerPassword){throw Error("Passwords não correspondem")}
+            if(editManagerPassword.newManagerPassword !== editManagerPassword.repeatNewManagerPassword){throw Error("Passwords must be equal")}
             props.updateManagerPassword(editManagerPassword)
         }else if(option === "operatorPassword"){
-            if(editOperatorPassword.newOperatorPassword !== editOperatorPassword.repeatNewOperatorPassword){throw Error("Passwords não correspondem")}
+            if(editOperatorPassword.newOperatorPassword !== editOperatorPassword.repeatNewOperatorPassword){throw Error("Passwords must be equal")}
             props.updateOperatorPassword(editOperatorPassword)
         }
         }catch(error){
             if(error instanceof Error){
                 setErrorMessage(error.message)
             }else{
-                setErrorMessage("Ocorreu um erro ao alterar a passowrd")
+                setErrorMessage("Internal error")
             }
             
         }
@@ -104,11 +104,12 @@ function ChangeCredentials(props:ChangeCredentialsProps){
     function handleCancelSubmit(){
         setConfirmationQuestion("")
         setConfirmingType(undefined)
+        setSelectedOption(undefined)
     }
 
 
     function handleConfirm(){
-        if(selectedOption === "Eliminar perfil"){
+        if(selectedOption === "Delete workplace profile"){
             props.deleteProfile()
             setConfirmationQuestion("")
         }else{
@@ -127,13 +128,13 @@ if(!props.isShowing){return null}
             
             {props.windowWidth<900 ? !selectedOption ? <OptionsContainer>
        <div className="change-credencials-container">
-            <div className="settings-header"><h2>Gerir perfil</h2></div>
+            <div className="settings-header"><h2>Manage Profile</h2></div>
             <ul className="change-credentials-options-list">
                 {options.map((item)=><li className="change-credentials-options-list-item" onClick={()=>handleSelectOption(item)}>{item}</li>)}
             </ul>
             
         </div> </OptionsContainer> : null : <OptionsContainer><div className="change-credencials-container">
-            <div className="settings-header"><h2>Gerir perfil</h2></div>
+            <div className="settings-header"><h2>Manage profile</h2></div>
             <ul className="change-credentials-options-list">
                 {options.map((item)=><li style={selectedOption === item ? {backgroundColor:"var(--secondary-color)",color:"var(--light-color)"}:undefined} className="change-credentials-options-list-item" onClick={()=>handleSelectOption(item)}>{item}</li>)}
             </ul>
@@ -146,8 +147,8 @@ if(!props.isShowing){return null}
     <form className="change-credentials-form change-company-name-form" onSubmit={(event)=>handleConfirmationForSubmition(event,"data")}>
     <input className="change-credentials-input" type="text" name="companyName" value={editWorkplaceData.companyName} onChange={(event)=>handleChangeData(event,"data")}/>
     <div className="change-credentials-button-container">
-        <input type="submit" value="Guardar"/>
-        <button type="button" onClick={()=>handleCancelEditing("data")}>Cancelar</button>
+        <input type="submit" value="Save"/>
+        <button type="button" onClick={()=>handleCancelEditing("data")}>Cancel</button>
     </div>
     
     </form>
@@ -156,8 +157,8 @@ if(!props.isShowing){return null}
     <form className="change-credentials-form " onSubmit={(event)=>handleConfirmationForSubmition(event,"data")}>
      <input className="change-credentials-input" type="text" name="loginName" value={editWorkplaceData.loginName} onChange={(event)=>handleChangeData(event,"data")}/>
     <div className="change-credentials-button-container">
-         <input type="submit" value="Guardar"/> 
-     <button type="button" onClick={()=>handleCancelEditing("data")}>Cancelar</button>
+         <input type="submit" value="Save"/> 
+     <button type="button" onClick={()=>handleCancelEditing("data")}>Cancel</button>
     </div>
     
 </form>
@@ -165,12 +166,12 @@ if(!props.isShowing){return null}
 <div className="change-selected-option-container">
     <div className="settings-header"><h2>{options[2]}</h2></div>
     <form className="change-credentials-form" onSubmit={(event)=>handleConfirmationForSubmition(event,"managerPassword")}>
-    <input className="change-credentials-input" type="password" placeholder="Palavra-passe atual" name="currentManagerPassword" value={editManagerPassword.currentManagerPassword} onChange={(event)=>handleChangeData(event,"managerPassword")}/>
-    <input className="change-credentials-input" type="password" placeholder="Nova palavra-passe" name="newManagerPassword" value={editManagerPassword.newManagerPassword} onChange={(event)=>handleChangeData(event,"managerPassword")}/>
-    <input className="change-credentials-input" type="password" placeholder="Repete a nova palavra-passe" name="repeatNewManagerPassword" value={editManagerPassword.repeatNewManagerPassword} onChange={(event)=>handleChangeData(event,"managerPassword")}/>
+    <input className="change-credentials-input" type="password" placeholder="Current password" name="currentManagerPassword" value={editManagerPassword.currentManagerPassword} onChange={(event)=>handleChangeData(event,"managerPassword")}/>
+    <input className="change-credentials-input" type="password" placeholder="New password" name="newManagerPassword" value={editManagerPassword.newManagerPassword} onChange={(event)=>handleChangeData(event,"managerPassword")}/>
+    <input className="change-credentials-input" type="password" placeholder="Repeat the new password" name="repeatNewManagerPassword" value={editManagerPassword.repeatNewManagerPassword} onChange={(event)=>handleChangeData(event,"managerPassword")}/>
      
-     <div className="change-credentials-button-container"><input type="submit" value="Guardar"/>
-     <button type="button" onClick={()=>handleCancelEditing("managerPassword")}>Cancelar</button></div>
+     <div className="change-credentials-button-container"><input type="submit" value="Save"/>
+     <button type="button" onClick={()=>handleCancelEditing("managerPassword")}>Cancel</button></div>
      
      </form>
      </div>
@@ -178,12 +179,12 @@ if(!props.isShowing){return null}
  <div className="change-selected-option-container">
     <div className="settings-header"><h2>{options[3]}</h2></div>
     <form className="change-credentials-form" onSubmit={(event)=>handleConfirmationForSubmition(event,"operatorPassword")}>
-    <input className="change-credentials-input" type="password" placeholder="Palavra-passe atual" name="currentOperatorPassword" value={editOperatorPassword.currentOperatorPassword} onChange={(event)=>handleChangeData(event,"operatorPassword")}/>
-    <input className="change-credentials-input" type="password" placeholder="Nova palavra-passe" name="newOperatorPassword" value={editOperatorPassword.newOperatorPassword} onChange={(event)=>handleChangeData(event,"operatorPassword")}/>
-    <input className="change-credentials-input" type="password" placeholder="Repete a nova palavra-passe" name="repeatNewOperatorPassword" value={editOperatorPassword.repeatNewOperatorPassword} onChange={(event)=>handleChangeData(event,"operatorPassword")}/>
+    <input className="change-credentials-input" type="password" placeholder="Current password" name="currentOperatorPassword" value={editOperatorPassword.currentOperatorPassword} onChange={(event)=>handleChangeData(event,"operatorPassword")}/>
+    <input className="change-credentials-input" type="password" placeholder="New Password" name="newOperatorPassword" value={editOperatorPassword.newOperatorPassword} onChange={(event)=>handleChangeData(event,"operatorPassword")}/>
+    <input className="change-credentials-input" type="password" placeholder="Repeat the new password" name="repeatNewOperatorPassword" value={editOperatorPassword.repeatNewOperatorPassword} onChange={(event)=>handleChangeData(event,"operatorPassword")}/>
      
-     <div className="change-credentials-button-container"><input type="submit" value="Guardar"/>
-     <button type="button" onClick={()=>handleCancelEditing("operatorPassword")}>Cancelar</button></div>
+     <div className="change-credentials-button-container"><input type="submit" value="Save"/>
+     <button type="button" onClick={()=>handleCancelEditing("operatorPassword")}>Cancel</button></div>
      
      </form>
       </div>

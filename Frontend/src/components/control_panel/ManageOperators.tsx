@@ -84,14 +84,14 @@ function ManageOperators(props: GerirOperadoresProps) {
     return <OptionsContainer>
  {props.addingOperator ? 
  <div className="add-operator">
-           <div className="add-operator-header settings-header"><h2 className="add-operator-title settings-title">Adicionar Colaborador</h2></div> 
+           <div className="add-operator-header settings-header"><h2 className="add-operator-title settings-title">Add team member</h2></div> 
             <form className="add-operator-form" onSubmit={handleSubmitAddOperator}>
-                <input className="add-operator-first-name add-operator-input" onChange={(event)=>inputName("first", event)} type="text" placeholder="Primeiro nome" name="firstName" value={newOperator.firstName}/>
-                <input className="add-operator-last-name add-operator-input" onChange={(event)=>inputName("last", event)} type="text" placeholder="Apelido/s" name="lastName" value={newOperator.lastName} />
-             <input className="add-operator-phone add-operator-input" onChange={(event)=>inputName("phone", event)} type="text" placeholder="Contacto" name="phone" value={newOperator.phone} />
+                <input className="add-operator-first-name add-operator-input" onChange={(event)=>inputName("first", event)} type="text" placeholder="First name" name="firstName" value={newOperator.firstName}/>
+                <input className="add-operator-last-name add-operator-input" onChange={(event)=>inputName("last", event)} type="text" placeholder="Last name/s" name="lastName" value={newOperator.lastName} />
+             <input className="add-operator-phone add-operator-input" onChange={(event)=>inputName("phone", event)} type="text" placeholder="Phone number" name="phone" value={newOperator.phone} />
     <div className="add-operator-button-container">
-        <input className="add-operator-add-button" type="submit" value="Adicionar" />
-         <button className="add-operator-cancel-button" type="button" onClick={cancelAddOperator} >Cancelar</button>
+        <input className="add-operator-add-button" type="submit" value="Add" />
+         <button className="add-operator-cancel-button" type="button" onClick={cancelAddOperator} >Cancel</button>
     </div>
                 
             </form>
@@ -101,7 +101,7 @@ function ManageOperators(props: GerirOperadoresProps) {
                 {searchIsActive ? <form className="manage-operators-search-form">
                     <input ref={searchRef} type="text" value={input} onChange={handleChange} placeholder="Operador" />
                 </form> : <div className="settings-header">
-                    <h2>Gerir colaboradores</h2>
+                    <h2>Manage staff</h2>
                     <AddIcon onClick={handleAddOperatorButton}/>
                     <SearchIcon onClick={handleSearchButton}/>
                 </div>}

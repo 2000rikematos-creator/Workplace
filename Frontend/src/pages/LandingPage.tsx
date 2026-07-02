@@ -25,9 +25,9 @@ function LandingPage(){
 
     const backendUrl = import.meta.env.VITE_BACKEND_URL
 
-    function handleSelectWorkPlaceOption(tipo:"abrir"|"criar"){
-        if(tipo === "criar"){setIsCreatingWorkplace(true)}
-        if(tipo === "abrir"){setIsOpeningWorkplace(true)}
+    function handleSelectWorkPlaceOption(type:"open"|"create"){
+        if(type === "create"){setIsCreatingWorkplace(true)}
+        if(type === "open"){setIsOpeningWorkplace(true)}
 
     }
 
@@ -42,12 +42,12 @@ function LandingPage(){
         }catch(error){
            if( error instanceof Error){
             if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error, please try again later")
             }else{
                setErrorMessage(error.message) 
             }
            }else{
-            setErrorMessage("ocorreu um erro inesperado")
+            setErrorMessage("Internal error, please try again later")
            }
         }finally{
             setIsLoading(false)
@@ -71,12 +71,12 @@ function LandingPage(){
     }catch(error){
         if(error instanceof Error){
             if(error.message === "Failed to fetch"){
-                setErrorMessage("Ocorreu um erro!")
+                setErrorMessage("Internal error")
             }else{
                setErrorMessage(error.message) 
             }
         }else{
-            setErrorMessage("Ocorreu um erro!")
+            setErrorMessage("Internal error")
         }
     }finally{
         setIsLoading(false)

@@ -21,7 +21,7 @@ async function getAllOperators(req:Request,res:Response,next:NextFunction){
 async function addOperator(req:Request,res:Response,next:NextFunction){
 const customReq = req as addOperatorType
     try{
-    if(customReq.workplace.id !== customReq.managerAuth.workplace){throw new httpError("Não autorizado",401)}    
+    if(customReq.workplace.id !== customReq.managerAuth.workplace){throw new httpError("Not authorized",401)}    
     const operatorData = req.body
     const correspondingWorkplace = await pool.query("SELECT * FROM operators WHERE workplace_id = $1",[customReq.workplace.id])
     const operators = correspondingWorkplace.rows
@@ -34,7 +34,7 @@ const customReq = req as addOperatorType
     const insertOperator = await pool.query("INSERT INTO operators (id,first_name,last_name,phone,workplace_id,internal_number) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *",
         [newOperator.id,newOperator.firstName,newOperator.lastName,newOperator.phone,newOperator.workplaceId,newOperator.internalNumber])
     
-    res.status(201).json({message:"Novo colaborador adicionado", data:newOperator})
+    res.status(201).json({message:"New team member added", data:newOperator})
     }catch(error){
         return next(error)
     }
@@ -47,11 +47,11 @@ async function deleteOperator(req:Request,res:Response,next:NextFunction){
         if(customReq.workplace.id !== customReq.managerAuth.workplace){throw new httpError("Não autorizado",401)}
         const id = req.params.id
         const operatorIsActive = await pool.query("SELECT * FROM active_tasks where operator_id = $1",[id])
-        if(operatorIsActive.rows.length>0){throw new httpError("Por favor termine primeiro a tarefa ativa deste colaborador!",422)}
+        if(operatorIsActive.rows.length>0){throw new httpError("Please finish this team member's current active task!",422)}
         const operatorExists = await pool.query("SELECT * FROM operators WHERE id = $1",[id])
-        if(operatorExists.rows.length<1){throw new httpError("Operador não encontrado",404)}
+        if(operatorExists.rows.length<1){throw new httpError("Team member not found",404)}
          await pool.query("DELETE FROM operators WHERE id = $1",[id])
-        res.status(200).json({message:"Colaborador eliminado"})
+        res.status(200).json({message:"Team member removed successfully"})
     }catch(error){
         return next(error)
     }
@@ -65,12 +65,12 @@ try{
 const id = req.params.id
     const {firstName,lastName,phone} = req.body
     const operatorExists = await pool.query("SELECT * FROM operators WHERE id = $1",[id])
-        if(operatorExists.rows.length<1){throw new httpError("Operador não encontrado",404)}
+        if(operatorExists.rows.length<1){throw new httpError("Could not find this team member",404)}
     const updated = await pool.query("UPDATE operators SET first_name = $1, last_name = $2, phone = $3 WHERE id = $4 RETURNING *",[firstName,lastName,phone,id])
     const data = updated.rows[0]
     
     const updatedData:Operator = {firstName:data.first_name,lastName:data.last_name,phone:data.phone,id:data.id,internalNumber:data.internal_number,workplaceId:data.workplace_id}
-    res.status(200).json({message:"Informações atualizadas", data:updatedData})
+    res.status(200).json({message:"Updated successfully", data:updatedData})
 }catch(error){
     return next(error)
 }

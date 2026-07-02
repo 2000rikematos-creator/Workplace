@@ -22,7 +22,7 @@ function CreateWorkplace(props:CreateWorkplaceProps){
  function handleSubmit(event:React.SubmitEvent<HTMLFormElement>){
     event.preventDefault()
     if(workplaceInputs.repeatManagerPassword !== workplaceInputs.managerPassword || workplaceInputs.repeatOperatorPassword !== workplaceInputs.operatorPassword){
-        setErrorMessage("As passwords não coincidem")
+        setErrorMessage("Passwords must be equal")
   return
     }
 
@@ -34,13 +34,13 @@ return <WorkPlaceOptionsContainer>
     <ErrorModal errorMessage={errorMessage} onClosing={()=>{setErrorMessage("")}}/>
     <form className="workplace-settings-form" onSubmit={handleSubmit}>
         
-        <input name="companyName" type="text" placeholder="Nome da empresa" onChange={handleChange} value={workplaceInputs.companyName}/>
-        <input name="loginName" type="text" placeholder="Nome para login" onChange={handleChange} value={workplaceInputs.loginName}/>
-        <input name="managerPassword" type="password" placeholder="Palavra-passe do responsável" onChange={handleChange} value={workplaceInputs.managerPassword}/>
-        <input name="repeatManagerPassword" type="password" placeholder="Repetir palavra-passe do responsável" onChange={handleChange} value={workplaceInputs.repeatManagerPassword}/>
-        <input name="operatorPassword" type="password" placeholder="Palavra-passe do operador" onChange={handleChange} value={workplaceInputs.operatorPassword}/>
-        <input name="repeatOperatorPassword" type="password" placeholder="Repetir palavra-passe do operador" onChange={handleChange} value={workplaceInputs.repeatOperatorPassword}/>
-        <input className="submit-login-button" type="submit" value="Criar"/>
+        <input name="companyName" type="text" placeholder="Company name" onChange={handleChange} value={workplaceInputs.companyName}/>
+        <input name="loginName" type="text" placeholder="Staff username" onChange={handleChange} value={workplaceInputs.loginName}/>
+        <input name="managerPassword" type="password" placeholder="Manager password" onChange={handleChange} value={workplaceInputs.managerPassword}/>
+        <input name="repeatManagerPassword" type="password" placeholder="Repeat manager password" onChange={handleChange} value={workplaceInputs.repeatManagerPassword}/>
+        <input name="operatorPassword" type="password" placeholder="Staff password" onChange={handleChange} value={workplaceInputs.operatorPassword}/>
+        <input name="repeatOperatorPassword" type="password" placeholder="Repeat staff password" onChange={handleChange} value={workplaceInputs.repeatOperatorPassword}/>
+        <input className="submit-login-button" type="submit" value="Sign up"/>
 
     </form>
 </WorkPlaceOptionsContainer>

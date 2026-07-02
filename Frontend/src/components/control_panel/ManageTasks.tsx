@@ -27,11 +27,6 @@ function ManageTasks(props:ManageTasksType){
     }
 
     function handleConfirm(){
-        if(currentAction === "addTask"){
-            props.addNewTask(taskInput);
-             setIsAddingTask(false);
-            setTaskInput("")
-        }
         if(currentAction === "deleteTask"){
             props.deleteTask(currentTask!.id)
         }
@@ -46,21 +41,21 @@ function ManageTasks(props:ManageTasksType){
         <div className="manage-tasks-container">
             <div className="manage-tasks-header settings-header">
                 {isAddingTask ? <div className="add-task-form">
-                <h2 className="settings-title">Adicionar tarefas</h2>
+                <h2 className="settings-title">Add task</h2>
                 <div className="manage-tasks-add-task-form">
-                    <input autoFocus type="text" onChange={handleAddTaskInput} value={taskInput} placeholder="Tarefa"/>
+                    <input autoFocus type="text" onChange={handleAddTaskInput} value={taskInput} placeholder="task"/>
                 <div className="manage-tasks-add-task-form-button-container">
-                    <button onClick={()=>{setCurrentAction("addTask"); setConfirmationQuestion("Criar tarefa?")}}>Adicionar</button>
-                <button onClick={()=>{setIsAddingTask(false); setTaskInput("")}} className="manage-tasks-add-task-form-cancel-button">Cancelar</button> </div>
+                    <button onClick={()=>{props.addNewTask(taskInput); setIsAddingTask(false);setTaskInput("")}}>Add</button>
+                <button onClick={()=>{setIsAddingTask(false); setTaskInput("")}} className="manage-tasks-add-task-form-cancel-button">Cancel</button> </div>
                 </div>
                 
-            </div>:<React.Fragment><h2 className="settings-title">Gerir tarefas</h2> <AddIcon onClick={()=>setIsAddingTask(true)}/></React.Fragment>}
+            </div>:<React.Fragment><h2 className="settings-title">Manage tasks</h2> <AddIcon onClick={()=>setIsAddingTask(true)}/></React.Fragment>}
             </div>
             
            
             
             <ul className="current-tasks-list">
-                {props.taskList.map((item)=><li className="current-task-list-item"><p className="current-task-list-item">{item.task}</p> <DeleteIcon className="delete-task-button" onClick={()=>{setCurrentTask(item);setCurrentAction("deleteTask");setConfirmationQuestion("Pretende eliminar esta tarefa permanentemente?")}}/></li>)}
+                {props.taskList.map((item)=><li className="current-task-list-item"><p className="current-task-list-item">{item.task}</p> <DeleteIcon className="delete-task-button" onClick={()=>{setCurrentTask(item);setCurrentAction("deleteTask");setConfirmationQuestion("Are you sure you want to delete this task?")}}/></li>)}
             </ul>
         </div>
     </OptionsContainer>

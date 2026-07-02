@@ -36,7 +36,7 @@ async function addActiveTask(req:Request,res:Response,next:NextFunction){
         [newActiveTask.operatorId,newActiveTask.taskId])
         
 
-    res.status(201).json({message:"nova tarefa atual criada",data:joined.rows[0]})
+    res.status(201).json({message:"New task added",data:joined.rows[0]})
     }catch(error){
        return next(error)
     }
@@ -55,7 +55,7 @@ async function endActiveTask(req:EndActiveTaskRequest,res:Response,next:NextFunc
 
     await pool.query("DELETE FROM active_tasks WHERE id = $1",[id])
     
-    res.status(200).json({message:"tarefa eliminada"})
+    res.status(200).json({message:"Task deleted successfully"})
    }catch(error){
     return next(error)
    }

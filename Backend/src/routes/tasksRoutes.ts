@@ -12,7 +12,7 @@ const router = Router()
 router.use(auth as Express.RequestHandler)
 router.get("/all",tasksControllers.getAllTasks)
 router.use(managerAuthorization)
-router.post("/add",[body("task").notEmpty().withMessage("Por favor preencha o nome da tarefa")],errorsValidation,tasksControllers.addNewTask)
+router.post("/add",[body("task").notEmpty().withMessage("Please fill the task name")],errorsValidation,tasksControllers.addNewTask)
 router.delete("/delete/:id",tasksControllers.deleteTask)
 
 export default router
