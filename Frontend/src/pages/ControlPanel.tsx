@@ -4,7 +4,7 @@ import SideBar from "../components/navigation/SideBar";
 import ControlPanelOptions from "../components/control_panel/ControlPanelOptions";
 import Enviornment from "../components/shared/Enviornment";
 import ManageOperators from "../components/control_panel/ManageOperators";
-import type {ManageProfileOptionsTypes, WorkplaceCreds, apiResponseData, apiResponseDataOperator, apiResponseDataOperatorlist, apiResponseDataTask, apiResponseDataTaskList, newOperator, Operator, Task, apiResponseDataUpdatedData,ControlPanelOptionsTypes } from "../shared/Types";
+import type {WorkplaceCreds, apiResponseData, apiResponseDataOperator, apiResponseDataOperatorlist, apiResponseDataTask, apiResponseDataTaskList, newOperator, Operator, Task, apiResponseDataUpdatedData,ControlPanelOptionsTypes } from "../shared/Types";
 import OperatorInfo from "../components/control_panel/OperatorInfo";
 import ManageTasks from "../components/control_panel/ManageTasks";
 import LoadingModal from "../components/modals/LoadingModal";
