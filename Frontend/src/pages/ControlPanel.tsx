@@ -23,10 +23,10 @@ interface ControlPanelProps {
 function ControlPanel(props:ControlPanelProps){
 
 const [selectedOperator,setSelectedOperator] = useState<Operator|undefined>()
-const optionsList:string[] = ["Gerir colaboradores", "Gerir tarefas","Alterar credenciais"]
+const optionsList:string[] = ["Gerir colaboradores", "Gerir tarefas","Gerir perfil"]
 const [taskList,setTaskList] = useState<Task[]>([])
 const [operatorsList, setOperatorsList] = useState<Operator[]>([])
-const [selectedOption,setSelectedOption] = useState<"Gerir colaboradores"| "Gerir tarefas"|"Alterar credenciais"|undefined>("Gerir colaboradores")
+const [selectedOption,setSelectedOption] = useState<"Gerir colaboradores"| "Gerir tarefas"|"Gerir perfil"|undefined>("Gerir colaboradores")
 const [isLoading, setisLoading] = useState(false)
 const [errorMessage, setErrorMessage] = useState("")
 const [token] = useState(()=>localStorage.getItem("token"))
@@ -39,7 +39,6 @@ const [successUpdatingCreds,setSuccessUpdatingCreds] = useState<boolean|undefine
 const navigate = useNavigate()
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL
-
 
 useEffect(()=>{
     async function verifyManagerSession(){
@@ -135,7 +134,7 @@ useEffect(()=>{
     
 },[selectedOption])
 
-function handleSelectOption(option:"Gerir colaboradores"| "Gerir tarefas"|"Alterar credenciais"){
+function handleSelectOption(option:"Gerir colaboradores"| "Gerir tarefas"|"Gerir perfil"){
     props.setMenuIsClicked(false);
     setSuccessAddingOperator(true)
     const optionExists = optionsList.find((item)=>item === option)
@@ -388,6 +387,25 @@ async function verifySession(){
         props.setMenuIsClicked(true)
     },[])
 
+  async function handleDeleteProfile(){
+    setisLoading(true)
+    try{
+        const response = await fetch(`${backendUrl}/settings/delete-profile`,{method:"DELETE",headers:{"Content-Type":"application/json","Authorization":`Bearer ${token}`,"Manager-Authorization":`Bearer ${managerToken}`}})
+        const responseData:apiResponseData = await response.json()
+        console.log(responseData)
+        if(!response.ok){
+            throw Error(responseData.message)
+        }
+        setMessage(responseData.message)
+        setTimeout(()=>{setMessage(""),context?.logout()},2000)
+    }catch(error){
+        if(error instanceof Error){
+            setErrorMessage(error.message)
+        }
+    }finally{
+        setisLoading(false)
+    }
+   }
 
 return <PageLayout>
     <MessageModal message={message}/>
@@ -397,15 +415,16 @@ return <PageLayout>
     {props.windowWidth <900 ? props.menuIsClicked ? <SideBar clickAway={()=>props.setMenuIsClicked(false)} className="control-panel-menu" placement="left">
     <ControlPanelOptions selectOption={handleSelectOption} optionsList={optionsList} />
     </SideBar>: null : <SideBar clickAway={()=>props.setMenuIsClicked(false)} className="control-panel-menu" placement="left">
-    <ControlPanelOptions selectOption={handleSelectOption} optionsList={optionsList} />
+    <ControlPanelOptions selectedOption={selectedOption} selectOption={handleSelectOption} optionsList={optionsList} />
     </SideBar>}
     
     <Enviornment>
          <ManageTasks deleteTask={handleDeleteTask} addNewTask={handleAddNewTask} taskList={taskList} isShowing={selectedOption === optionsList[1]} />
-        {props.windowWidth < 900 ? selectedOperator === undefined ? <ManageOperators addingOperator={!successAddingOperator} handleAddingOperator={(yn: boolean) => { setSuccessAddingOperator(!yn); if (yn === true) { setSelectedOperator(undefined) } }} selectOperator={handleSelectOperator} addOperator={handleAddOperator} isShowing={selectedOption === optionsList[0]} operatorsList={operatorsList} /> : <OperatorInfo isEditing={!successUpdatingOperator} handleEditOperatorButton={(yn: boolean) => { setSuccessUpdatingOperator(!yn) }} editOperator={handleEditOperator} deleteOperator={handleDeleteOperator} closeDetails={() => setSelectedOperator(undefined)} operatorSelected={selectedOption === optionsList[0] ? selectedOperator : undefined} /> : <React.Fragment> <ManageOperators addingOperator={!successAddingOperator} handleAddingOperator={(yn: boolean) => { setSuccessAddingOperator(!yn); if (yn === true) { setSelectedOperator(undefined) } }} selectOperator={handleSelectOperator} addOperator={handleAddOperator} isShowing={selectedOption === optionsList[0]} operatorsList={operatorsList} />
+        {props.windowWidth < 900 ? selectedOperator === undefined ? <ManageOperators selectedOperator={selectedOperator} addingOperator={!successAddingOperator} handleAddingOperator={(yn: boolean) => { setSuccessAddingOperator(!yn); if (yn === true) { setSelectedOperator(undefined) } }} selectOperator={handleSelectOperator} addOperator={handleAddOperator} isShowing={selectedOption === optionsList[0]} operatorsList={operatorsList} /> : <OperatorInfo isEditing={!successUpdatingOperator} handleEditOperatorButton={(yn: boolean) => { setSuccessUpdatingOperator(!yn) }} editOperator={handleEditOperator} deleteOperator={handleDeleteOperator} closeDetails={() => setSelectedOperator(undefined)} operatorSelected={selectedOption === optionsList[0] ? selectedOperator : undefined} /> : <React.Fragment> <ManageOperators selectedOperator={selectedOperator} addingOperator={!successAddingOperator} handleAddingOperator={(yn: boolean) => { setSuccessAddingOperator(!yn); if (yn === true) { setSelectedOperator(undefined) } }} selectOperator={handleSelectOperator} addOperator={handleAddOperator} isShowing={selectedOption === optionsList[0]} operatorsList={operatorsList} />
            <OperatorInfo isEditing={!successUpdatingOperator} handleEditOperatorButton={(yn:boolean)=>{setSuccessUpdatingOperator(!yn)}} editOperator={handleEditOperator} deleteOperator={handleDeleteOperator} closeDetails={()=>setSelectedOperator(undefined)} operatorSelected={selectedOption === optionsList[0] ? selectedOperator : undefined}/> </React.Fragment>} 
           
            {context?.workplaceData ? <ChangeCredentials
+           deleteProfile={handleDeleteProfile}
            windowWidth = {props.windowWidth}
             successUpdating={successUpdatingCreds}
              isShowing={selectedOption === optionsList[2]}

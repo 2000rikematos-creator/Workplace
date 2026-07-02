@@ -1,10 +1,11 @@
-import {createWorkplaceRequest, LoginManagerRequest, openWorkplaceCredsRequest, UpadateWorkplaceDataRequest, UpdateWorkplaceRequestManagerPassword, UpdateWorkplaceRequestOperatorPassword, workplaceData, type workplaceCreateCreds} from "../types/types.js"
+import {createWorkplaceRequest, DeleteProfileRequest, LoginManagerRequest, openWorkplaceCredsRequest, UpadateWorkplaceDataRequest, UpdateWorkplaceRequestManagerPassword, UpdateWorkplaceRequestOperatorPassword, workplaceData, type workplaceCreateCreds} from "../types/types.js"
 import {v4 as uuid} from "uuid"
 import httpError from "../utils/customError.js"
 import jwt from "jsonwebtoken"
 import { Response,Request, NextFunction } from "express"
 import bcrypt from "bcrypt";
 import pool from "../utils/db.js"
+import { json } from "node:stream/consumers"
 
 
 interface PostgresError extends Error {
@@ -244,6 +245,20 @@ async function updateWorkplaceData(req:Request,res:Response,next:NextFunction){
     res.status(200).json({message:"Sessão ativa"})
  }
 
+ async function deleteProfile(req:Request,res:Response,next:NextFunction){
+    const customReq = req as DeleteProfileRequest
+    try{
+        if(customReq.managerAuth.workplace !== customReq.workplace.id){
+            throw new httpError("Não autorizado",401)
+    }
+    await pool.query("DELETE FROM workplaces WHERE id = $1",[customReq.workplace.id]);
+    res.status(200).json({message:"Perfil eliminado"})
+    }catch(error){
+        return next(error)
+    }
+    
+ }
 
 
-export {createWorkplace, openWorkplace,loginManager, verifySession, updateWorkplaceData, updateManagerPassword, updateOperatorPassword,managerSession}
+
+export {createWorkplace, openWorkplace,loginManager, verifySession, updateWorkplaceData, updateManagerPassword, updateOperatorPassword,managerSession, deleteProfile}

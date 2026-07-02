@@ -10,6 +10,7 @@
 }
 
 .settings-header{
+    z-index: 100;
     padding: 1em 2em;
     background-color: var(--secondary-color);
     color: var(--light-color);
@@ -76,7 +77,7 @@ border: 1px solid gray;
 }
 
 
-.manage-operators-button-container, .manage-operators-search-form{
+.manage-operators-search-form{
     padding: 1em 1em;
     position: sticky;
     background-color: var(--secondary-color);

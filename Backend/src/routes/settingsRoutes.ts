@@ -26,6 +26,6 @@ router.patch("/update/data",
     .isLength({min:6}).withMessage("A palavra tem que ter um minimo de 6 caracteres")],
     errorsValidation,settingsControllers.updateWorkplaceData)
 router.patch("/update/manager-password",[body("currentManagerPassword").trim(" ").notEmpty().withMessage("Por favor preencha a palavra-passe atual"),body("newManagerPassword").trim(" ").notEmpty().withMessage("Por favor preencha a nova palavra-passe").isLength({min:7}).withMessage("Palavra passe muito curta")],errorsValidation,settingsControllers.updateManagerPassword)
-router.patch("/update/operator-password",[body("currentOperatorPassword").trim(" ").notEmpty().withMessage("Por favor preencha a palavra-passe atual"),body("newOperatorPassword").trim(" ").notEmpty().withMessage("Por favor preencha a nova palavra-passe").isLength({min:7}).withMessage("Palavra passe muito curta")],errorsValidation,settingsControllers.updateOperatorPassword)
-
+router.patch("/update/operator-password",[body("currentOperatorPassword").trim(" ").notEmpty().withMessage("Por favor preencha a palavra-passe atual"),body("newOperatorPassword").trim(" ").notEmpty().withMessage("Por favor preencha a nova palavra-passe").isLength({min:7}).withMessage("Palavra passe muito curta")],errorsValidation,settingsControllers.updateOperatorPassword);
+router.delete("/delete-profile",settingsControllers.deleteProfile)
 export default router

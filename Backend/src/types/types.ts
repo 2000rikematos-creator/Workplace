@@ -129,3 +129,7 @@ export interface deleteTaskRequest extends AuthMiddlewareRequest{
     managerAuth:ManagerToken;
     params:{id:string}
 }
+
+export interface DeleteProfileRequest extends AuthMiddlewareRequest{
+    managerAuth:ManagerToken;
+}

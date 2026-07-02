@@ -36,10 +36,10 @@ return <WorkPlaceOptionsContainer>
         
         <input name="companyName" type="text" placeholder="Nome da empresa" onChange={handleChange} value={workplaceInputs.companyName}/>
         <input name="loginName" type="text" placeholder="Nome para login" onChange={handleChange} value={workplaceInputs.loginName}/>
-        <input name="managerPassword" type="password" placeholder="Password do responsavel" onChange={handleChange} value={workplaceInputs.managerPassword}/>
-        <input name="repeatManagerPassword" type="password" placeholder="Repetir password do responsavel" onChange={handleChange} value={workplaceInputs.repeatManagerPassword}/>
-        <input name="operatorPassword" type="password" placeholder="Password do operador" onChange={handleChange} value={workplaceInputs.operatorPassword}/>
-        <input name="repeatOperatorPassword" type="password" placeholder="Repetir password do operador" onChange={handleChange} value={workplaceInputs.repeatOperatorPassword}/>
+        <input name="managerPassword" type="password" placeholder="Palavra-passe do responsável" onChange={handleChange} value={workplaceInputs.managerPassword}/>
+        <input name="repeatManagerPassword" type="password" placeholder="Repetir palavra-passe do responsável" onChange={handleChange} value={workplaceInputs.repeatManagerPassword}/>
+        <input name="operatorPassword" type="password" placeholder="Palavra-passe do operador" onChange={handleChange} value={workplaceInputs.operatorPassword}/>
+        <input name="repeatOperatorPassword" type="password" placeholder="Repetir palavra-passe do operador" onChange={handleChange} value={workplaceInputs.repeatOperatorPassword}/>
         <input className="submit-login-button" type="submit" value="Criar"/>
 
     </form>

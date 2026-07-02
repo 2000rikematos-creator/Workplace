@@ -10,6 +10,7 @@ type GerirOperadoresProps = {
     isShowing: boolean
     addOperator:(newOperator:newOperator)=>void
     selectOperator:(id:string)=>void
+    selectedOperator:Operator|undefined
     addingOperator:boolean
     handleAddingOperator:(yn:boolean)=>void
 }
@@ -87,7 +88,7 @@ function ManageOperators(props: GerirOperadoresProps) {
             <form className="add-operator-form" onSubmit={handleSubmitAddOperator}>
                 <input className="add-operator-first-name add-operator-input" onChange={(event)=>inputName("first", event)} type="text" placeholder="Primeiro nome" name="firstName" value={newOperator.firstName}/>
                 <input className="add-operator-last-name add-operator-input" onChange={(event)=>inputName("last", event)} type="text" placeholder="Apelido/s" name="lastName" value={newOperator.lastName} />
-             <input className="add-operator-phone add-operator-input" onChange={(event)=>inputName("phone", event)} type="text" placeholder="phone" name="phone" value={newOperator.phone} />
+             <input className="add-operator-phone add-operator-input" onChange={(event)=>inputName("phone", event)} type="text" placeholder="Contacto" name="phone" value={newOperator.phone} />
     <div className="add-operator-button-container">
         <input className="add-operator-add-button" type="submit" value="Adicionar" />
          <button className="add-operator-cancel-button" type="button" onClick={cancelAddOperator} >Cancelar</button>
@@ -99,14 +100,15 @@ function ManageOperators(props: GerirOperadoresProps) {
             <div className="buttons-with-list">
                 {searchIsActive ? <form className="manage-operators-search-form">
                     <input ref={searchRef} type="text" value={input} onChange={handleChange} placeholder="Operador" />
-                </form> : <div className="manage-operators-button-container">
+                </form> : <div className="settings-header">
+                    <h2>Gerir colaboradores</h2>
                     <AddIcon onClick={handleAddOperatorButton}/>
                     <SearchIcon onClick={handleSearchButton}/>
                 </div>}
                 <div className="manage-operators-list-container">
                     <ul className="manage-operators-list">
                 {input.length < 1 ? 
-                    props.operatorsList.map((item: Operator) => <li onMouseDown={()=>props.selectOperator(item.id)} className="manage-operators-list-item"><p className="manage-operators-list-item-name">{item.firstName} {item.lastName}</p> <p className="manage-operators-list-item-id">{item.internalNumber}</p></li>): corespondingList.map((item: Operator) => <li ref={listRef} onMouseDown={()=>props.selectOperator(item.id)} className="manage-operators-list-item"><p className="manage-operators-list-item-name">{item.firstName} {item.lastName}</p> <p className="manage-operators-list-item-id">{item.internalNumber}</p></li>)}
+                    props.operatorsList.map((item: Operator) => <li style={props.selectedOperator?.id === item.id ? {backgroundColor:"var(--secondary-color)",color:"var(--light-color)"}:undefined} onMouseDown={()=>props.selectOperator(item.id)} className="manage-operators-list-item"><p className="manage-operators-list-item-name">{item.firstName} {item.lastName}</p> <p className="manage-operators-list-item-id">{item.internalNumber}</p></li>): corespondingList.map((item: Operator) => <li ref={listRef} onMouseDown={()=>props.selectOperator(item.id)} className="manage-operators-list-item"><p className="manage-operators-list-item-name">{item.firstName} {item.lastName}</p> <p className="manage-operators-list-item-id">{item.internalNumber}</p></li>)}
                     </ul> 
                 </div>
             

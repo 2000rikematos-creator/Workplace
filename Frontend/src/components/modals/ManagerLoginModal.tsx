@@ -28,7 +28,7 @@ function ManagerLoginModal(props:ManagerLoginModalProps){
     if(!props.isShowing)return null
     return <Modal onClosing={handleClosing}>
 <div ref={loginRef}className="manager-login-modal">
-    <input type="password" value={input} onChange={handleChange} placeholder="Palavra passe do gerente" autoFocus={true}/>
+    <input type="password" value={input} onChange={handleChange} placeholder="Palavra passe do responsável" autoFocus={true}/>
     <button onClick={handleSubmitPassword}>Entrar</button>
 </div>
     </Modal>

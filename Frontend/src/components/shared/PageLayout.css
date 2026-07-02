@@ -2,11 +2,11 @@
     position: absolute;
     top:0em;
     display: grid;
-    grid-template-columns:auto 1fr;
+    grid-template-columns:max-content auto;
     grid-template-rows: auto;
     height: 100dvh;
     max-height: 100dvh;
-    width: auto;
+    width: 100dvw;
     background-color: var(--background);
 }
 

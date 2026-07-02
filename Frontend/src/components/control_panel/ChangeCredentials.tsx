@@ -13,15 +13,18 @@ interface ChangeCredentialsProps {
     updateOperatorPassword:(data:{currentOperatorPassword:string,newOperatorPassword:string,repeatNewOperatorPassword:string})=>void
     successUpdating:boolean|undefined;
     windowWidth:number;
+    deleteProfile:()=>void;
 }
+
+type Options = "Alterar nome da empresa"|"Alterar nome do login"|"Alterar palavra-passe do responsável"|"Alterar palavra-passe do colaborador"|"Eliminar perfil"
 
 
 function ChangeCredentials(props:ChangeCredentialsProps){
 
     if(!props.workplaceData){return null}
 
-    const options:string[] = ["Alterar nome da empresa","Alterar nome do login","Alterar password do gerente","Alterar password do operador"]
-    const [selectedOption,setSelectedOption] = useState<string|undefined|null>(props.successUpdating === undefined ? undefined:undefined)
+    const options:Options[] = ["Alterar nome da empresa","Alterar nome do login","Alterar palavra-passe do responsável","Alterar palavra-passe do colaborador","Eliminar perfil"]
+    const [selectedOption,setSelectedOption] = useState<Options|undefined|null>(props.successUpdating === undefined ? undefined:undefined)
     const [errorMessage,setErrorMessage] = useState("")
     const [editWorkplaceData,setEditWorkplaceData] = useState(props.workplaceData)
     const [editManagerPassword,setEditManagerPassword] = useState({currentManagerPassword:"",newManagerPassword:"",repeatNewManagerPassword:""})
@@ -31,7 +34,10 @@ function ChangeCredentials(props:ChangeCredentialsProps){
 
     useEffect(()=>{setSelectedOption((prev)=>props.successUpdating === false ? prev: undefined)},[props.successUpdating])
     
-    function handleSelectOption(option:string){
+    function handleSelectOption(option:Options){
+        if(option === "Eliminar perfil"){
+            setConfirmationQuestion("Pretende eliminar permanentemente este perfil e todos os dados a ele associados?")
+        }
         setEditWorkplaceData(props.workplaceData!);
         setEditManagerPassword({currentManagerPassword:"",newManagerPassword:"",repeatNewManagerPassword:""});
         setEditOperatorPassword({currentOperatorPassword:"",newOperatorPassword:"",repeatNewOperatorPassword:""});
@@ -101,70 +107,80 @@ function ChangeCredentials(props:ChangeCredentialsProps){
     }
 
 
+    function handleConfirm(){
+        if(selectedOption === "Eliminar perfil"){
+            props.deleteProfile()
+            setConfirmationQuestion("")
+        }else{
+            handleSubmit(confirmingType!)
+            setConfirmationQuestion("")
+        }
+    }
+
 if(!props.isShowing){return null}
     return <React.Fragment>
         <ConfirmationModal
          question={confirmationQuestion}
           handleCancel={handleCancelSubmit}
-           handleConfirm={()=>handleSubmit(confirmingType!)}/>
+           handleConfirm={handleConfirm}/>
         <ErrorModal errorMessage={errorMessage} onClosing={()=>setErrorMessage("")}/>
             
             {props.windowWidth<900 ? !selectedOption ? <OptionsContainer>
        <div className="change-credencials-container">
-            <div className="settings-header"><h2>Alterar Credenciais</h2></div>
+            <div className="settings-header"><h2>Gerir perfil</h2></div>
             <ul className="change-credentials-options-list">
                 {options.map((item)=><li className="change-credentials-options-list-item" onClick={()=>handleSelectOption(item)}>{item}</li>)}
             </ul>
             
         </div> </OptionsContainer> : null : <OptionsContainer><div className="change-credencials-container">
-            <div className="settings-header"><h2>Alterar Credenciais</h2></div>
+            <div className="settings-header"><h2>Gerir perfil</h2></div>
             <ul className="change-credentials-options-list">
-                {options.map((item)=><li className="change-credentials-options-list-item" onClick={()=>handleSelectOption(item)}>{item}</li>)}
+                {options.map((item)=><li style={selectedOption === item ? {backgroundColor:"var(--secondary-color)",color:"var(--light-color)"}:undefined} className="change-credentials-options-list-item" onClick={()=>handleSelectOption(item)}>{item}</li>)}
             </ul>
         </div>    
     </OptionsContainer>}
 
     {!selectedOption ? null : <OptionsContainer>
     {selectedOption === options[0] ? <div className="change-company-name-container change-selected-option-container">
-        <div className="settings-header"><h2>Alterar nome da empresa</h2></div>
+        <div className="settings-header"><h2>{options[0]}</h2></div>
     <form className="change-credentials-form change-company-name-form" onSubmit={(event)=>handleConfirmationForSubmition(event,"data")}>
     <input className="change-credentials-input" type="text" name="companyName" value={editWorkplaceData.companyName} onChange={(event)=>handleChangeData(event,"data")}/>
     <div className="change-credentials-button-container">
         <input type="submit" value="Guardar"/>
-        <button type="button" onClick={()=>handleCancelEditing("data")}> Cancelar </button>
+        <button type="button" onClick={()=>handleCancelEditing("data")}>Cancelar</button>
     </div>
     
     </form>
 </div>:selectedOption === options[1] ? <div className="change-selected-option-container">
-    <div className="settings-header"><h2>Alterar nome do login</h2></div>
+    <div className="settings-header"><h2>{options[1]}</h2></div>
     <form className="change-credentials-form " onSubmit={(event)=>handleConfirmationForSubmition(event,"data")}>
      <input className="change-credentials-input" type="text" name="loginName" value={editWorkplaceData.loginName} onChange={(event)=>handleChangeData(event,"data")}/>
     <div className="change-credentials-button-container">
          <input type="submit" value="Guardar"/> 
-     <button type="button" onClick={()=>handleCancelEditing("data")}> Cancelar </button>
+     <button type="button" onClick={()=>handleCancelEditing("data")}>Cancelar</button>
     </div>
     
 </form>
 </div> :selectedOption === options[2] ?
 <div className="change-selected-option-container">
-    <div className="settings-header"><h2>Alterar palavra-passe do responsavel</h2></div>
+    <div className="settings-header"><h2>{options[2]}</h2></div>
     <form className="change-credentials-form" onSubmit={(event)=>handleConfirmationForSubmition(event,"managerPassword")}>
-    <input className="change-credentials-input" type="password" placeholder="Password atual" name="currentManagerPassword" value={editManagerPassword.currentManagerPassword} onChange={(event)=>handleChangeData(event,"managerPassword")}/>
-    <input className="change-credentials-input" type="password" placeholder="Nova password" name="newManagerPassword" value={editManagerPassword.newManagerPassword} onChange={(event)=>handleChangeData(event,"managerPassword")}/>
-    <input className="change-credentials-input" type="password" placeholder="Repete a nova password" name="repeatNewManagerPassword" value={editManagerPassword.repeatNewManagerPassword} onChange={(event)=>handleChangeData(event,"managerPassword")}/>
+    <input className="change-credentials-input" type="password" placeholder="Palavra-passe atual" name="currentManagerPassword" value={editManagerPassword.currentManagerPassword} onChange={(event)=>handleChangeData(event,"managerPassword")}/>
+    <input className="change-credentials-input" type="password" placeholder="Nova palavra-passe" name="newManagerPassword" value={editManagerPassword.newManagerPassword} onChange={(event)=>handleChangeData(event,"managerPassword")}/>
+    <input className="change-credentials-input" type="password" placeholder="Repete a nova palavra-passe" name="repeatNewManagerPassword" value={editManagerPassword.repeatNewManagerPassword} onChange={(event)=>handleChangeData(event,"managerPassword")}/>
      
      <div className="change-credentials-button-container"><input type="submit" value="Guardar"/>
-     <button type="button" onClick={()=>handleCancelEditing("managerPassword")}> Cancelar </button></div>
+     <button type="button" onClick={()=>handleCancelEditing("managerPassword")}>Cancelar</button></div>
      
      </form>
      </div>
  : selectedOption === options[3] ?
  <div className="change-selected-option-container">
-    <div className="settings-header"><h2>Alterar palavra-passe do colaborador</h2></div>
+    <div className="settings-header"><h2>{options[3]}</h2></div>
     <form className="change-credentials-form" onSubmit={(event)=>handleConfirmationForSubmition(event,"operatorPassword")}>
-    <input className="change-credentials-input" type="password" placeholder="Password atual" name="currentOperatorPassword" value={editOperatorPassword.currentOperatorPassword} onChange={(event)=>handleChangeData(event,"operatorPassword")}/>
-    <input className="change-credentials-input" type="password" placeholder="Nova password" name="newOperatorPassword" value={editOperatorPassword.newOperatorPassword} onChange={(event)=>handleChangeData(event,"operatorPassword")}/>
-    <input className="change-credentials-input" type="password" placeholder="Repete a nova password" name="repeatNewOperatorPassword" value={editOperatorPassword.repeatNewOperatorPassword} onChange={(event)=>handleChangeData(event,"operatorPassword")}/>
+    <input className="change-credentials-input" type="password" placeholder="Palavra-passe atual" name="currentOperatorPassword" value={editOperatorPassword.currentOperatorPassword} onChange={(event)=>handleChangeData(event,"operatorPassword")}/>
+    <input className="change-credentials-input" type="password" placeholder="Nova palavra-passe" name="newOperatorPassword" value={editOperatorPassword.newOperatorPassword} onChange={(event)=>handleChangeData(event,"operatorPassword")}/>
+    <input className="change-credentials-input" type="password" placeholder="Repete a nova palavra-passe" name="repeatNewOperatorPassword" value={editOperatorPassword.repeatNewOperatorPassword} onChange={(event)=>handleChangeData(event,"operatorPassword")}/>
      
      <div className="change-credentials-button-container"><input type="submit" value="Guardar"/>
      <button type="button" onClick={()=>handleCancelEditing("operatorPassword")}>Cancelar</button></div>

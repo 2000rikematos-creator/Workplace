@@ -1,7 +1,8 @@
 
 
 .options-container{
-  height: 92dvh;
+  height:fit-content;
+  max-height:calc(100dvh - 4em);
   margin-left: 1px;
   max-width: fit-content;
   position: sticky;
