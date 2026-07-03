@@ -76,7 +76,7 @@
         background-color: var(--main-color);
         color: var(--light-color);
         padding: 10px 10px;
-        font-size: 2em;
+        font-size: 1.5em;
         width: 70vw;
         border: 2px solid var(--light-color);
         border-radius: 999px;
@@ -97,6 +97,8 @@
         width: 20%;
     }
     .selector-container h2{
+        flex-wrap: nowrap;
+        width: fit-content;
         font-size: 2em;
     }
 }

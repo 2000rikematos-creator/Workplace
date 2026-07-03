@@ -25,7 +25,9 @@ const [milliseconds,setMilliseconds] = useState<number>(()=>Date.now()-props.tas
         props.endTask(props.task.id, Date.now())
     }
     return <li className="active-task">
-      <div className="name-with-timer">
+      {props.task.taskName.length>15 ? <h4>{props.task.taskName.slice(0,15)} ...</h4> : <h4>{props.task.taskName}</h4>  }
+      <div className="active-task-info-container">
+        <div className="name-with-timer">
       <div className="name-and-internal-number-container">
         <h3>{props.task.operatorFirstName} {props.task.operatorLastName[0]}.</h3>
         <p className="active-task-internal-number">{props.task.internalNumber}</p>
@@ -36,8 +38,10 @@ const [milliseconds,setMilliseconds] = useState<number>(()=>Date.now()-props.tas
       </div>
       
 
-        {props.task.taskName.length>15 ? <h4>{props.task.taskName.slice(0,15)} ...</h4> : <h4>{props.task.taskName}</h4>  }
-        <p className="end-task-button" onClick={handleEndTask}>End Task</p>
+        
+        
+      </div>
+      <p className="end-task-button" onClick={handleEndTask}>End task</p>
   
         </li>
 }

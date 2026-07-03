@@ -10,7 +10,7 @@ import TaskList from "../components/home_page/TaskList";
 import ActiveTasksList from "../components/home_page/ActiveTasksList";
 import LoadingModal from "../components/modals/LoadingModal";
 import { AuthContext } from "../context/AuthContext";
-
+import ConfirmationModal from "../components/modals/ConfirmationModal";
 
 interface HomePageProps {
     menuIsClicked:boolean;
@@ -30,6 +30,8 @@ function HomePage(props:HomePageProps){
     const [operatorsList, setOperatorsList] = useState<Operator[]>([])
     const [isLoading,setIsLoading] = useState(false)
     const context = useContext(AuthContext)
+    const [confirmationQuestion,setConfirmationQuestion] = useState("")
+    const [taskToDelete,setTaskToDelete] = useState<{id:string,timeEnd:number}|undefined>(undefined)
     let token = context?.token
     
     
@@ -184,6 +186,13 @@ async function initializeEnv(){
         
     }
 
+    function confirmEndtask(id:string,timeEnd:number){
+        setConfirmationQuestion("End task?")
+        setTaskToDelete({id,timeEnd})
+    }
+
+    
+
     async function handleEndTask(id:string, timeEnd:number){
 
         setIsLoading(true)
@@ -205,9 +214,15 @@ async function initializeEnv(){
             }
         }finally{
             setIsLoading(false)
+            
         }
 
     
+    }
+
+    function handleConfirm(){
+        handleEndTask(taskToDelete!.id,taskToDelete!.timeEnd)
+        setConfirmationQuestion("")
     }
 
   
@@ -242,6 +257,7 @@ async function initializeEnv(){
    return <PageLayout>
     <LoadingModal isShowing={isLoading} />
     <ErrorModal onClosing={()=>{setErrorMessage("")}} errorMessage={errorMessage}/>
+        <ConfirmationModal question={confirmationQuestion} handleConfirm={handleConfirm} handleCancel={()=>{setTaskToDelete(undefined);setConfirmationQuestion("")}}/>
     <StartTaskModal
      searchOperator={searchOperator}
       onClosing={()=>setStartTaskModalIsOpen(false)}
@@ -253,7 +269,7 @@ async function initializeEnv(){
         {props.windowWidth > 900 ? <SideBar placement="left"> <TaskList startTask={openTaskModal} taskListArray={taskArray}/> </SideBar>
         : props.menuIsClicked ? <SideBar placement="left" clickAway={()=>props.sideBarClickAway()}> <TaskList startTask={openTaskModal} taskListArray={taskArray}/> </SideBar>:null}
     
-    <Enviornment> <ActiveTasksList endTask={handleEndTask} activeTasksList={activeTasks}/>  </Enviornment>  
+    <Enviornment> <ActiveTasksList endTask={confirmEndtask} activeTasksList={activeTasks}/>  </Enviornment>  
         </PageLayout>
 }
 

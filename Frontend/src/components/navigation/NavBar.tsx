@@ -89,9 +89,9 @@ try{
         </ul>
       {props.windowWidth < 650 && props.optionsIsClicked ? <SideBar clickAway={()=>props.setOptionsIsClicked(false)} placement="right" className="options-sidebar">
         <ul className="navigation-buttons-small">
-              {location.pathname === "/control-panel" ? null : <NavBarItem className="nav-options" onClick={()=>{setLoginManagerIsShowing(true);props.setOptionsIsClicked(false)}}><ControlPanelicon className="nav-icon"/>Painel de Controlo</NavBarItem> } 
-               {location.pathname === "/" ? null : <NavBarItem className="nav-options" onClick={()=> {navigate("/");props.setOptionsIsClicked(false)}}><HomeIcon className="nav-icon"/>Página inicial</NavBarItem>}
-               <NavBarItem className="logout-button nav-options" onClick={()=>context?.logout()}> <LogoutIcon className="nav-icon"/>Sair</NavBarItem> 
+              {location.pathname === "/control-panel" ? null : <NavBarItem className="nav-options" onClick={()=>{setLoginManagerIsShowing(true);props.setOptionsIsClicked(false)}}><ControlPanelicon className="nav-icon"/>Control Panel</NavBarItem> } 
+               {location.pathname === "/" ? null : <NavBarItem className="nav-options" onClick={()=> {navigate("/");props.setOptionsIsClicked(false)}}><HomeIcon className="nav-icon"/>Home</NavBarItem>}
+               <NavBarItem className="logout-button nav-options" onClick={()=>context?.logout()}> <LogoutIcon className="nav-icon"/>Logout</NavBarItem> 
             </ul>
       </SideBar> : null}  
         

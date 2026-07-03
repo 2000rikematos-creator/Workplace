@@ -1,8 +1,8 @@
 .active-task{
     color: var(--secondary-color);
-    padding: 20px;
+    padding: 0;
     height: fit-content;
-    width: 150px;
+    width: 200px;
     background-color: #ffffff;
     list-style-type:none ;
     border-radius: 15px;
@@ -12,8 +12,16 @@
     font-family: var(--font-family-default);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap:5px;
+    justify-content:flex-start
+}
+
+.active-task-info-container{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap:10px;
 }
 
 .name-with-timer{
@@ -36,15 +44,16 @@
 }
 
 .active-task h4{
-    flex-grow:1 ;
-    font-size: 10px;
+    position: relative;
+    top: 0;
+    overflow: hidden;
+    font-size: 15px;
+    border-radius: 15px 15px 0px 0px;
     letter-spacing: 1px;
-    border: 1px solid black;
     text-align: center;
     height: fit-content;
-    padding: 5px 15px;
-    margin-top: 4px;
-    border-radius: 9999px;
+    width: 100%;
+    padding:10px 0px;
     background-color: var(--secondary-color);
     color: white;
 }
@@ -55,7 +64,6 @@
 }
 
 .end-task-button{
-    flex-grow: 1;
     position: relative;
     text-align: center;
     font-size: 0.75em;
@@ -65,7 +73,7 @@
     padding: 5px;
     padding-right:10px;
     padding-left: 10px;
-    border-radius: 9999px;
+    border-radius: 0px 0px 15px 15px;
     background-color: var(--default-light-green);
     color: var(--default-green);
 }
@@ -74,7 +82,6 @@
     border: 1px solid var(--default-orange);
     background-color: var(--default-light-orange);
     color: var(--default-light-orange); 
-    scale: 1.1;
 }
 
 
@@ -82,13 +89,35 @@
     color: #64748b;
 }
 
+.active-task:has(.end-task-button:active){
+scale: 1.1;
+}
+
+.end-task-button:active{
+    opacity: 1;
+}
+
 @media(any-hover: hover){
     .end-task-button:hover{
-        cursor: pointer;
        border: 1px solid var(--default-orange);
        background-color: var(--default-light-orange);
-       color: var(--default-orange); 
+       color: var(--default-orange);
+       opacity: 1; 
     }
+
+
+
+    .active-task:has(.end-task-button:hover) {
+    border: 1px solid var(--default-orange);
+    
+}
+
+
+    .active-task:hover{
+        cursor: pointer;
+        border: 2px solid var(--default-green);;
+    }
+
 }
 
 
@@ -97,21 +126,42 @@
     
 
 .end-task-button{
-    position: relative;
-    max-width: fit-content;
-    font-size: 1.2em;
-    left:2%;
+    opacity: 0;
+    border-radius: 0;
+    position: absolute;
+    left: 0;
+    width: 7em;
+    height: 100%;
+    padding: 0px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    
 }    
 
 
     .active-task{
+        position: relative;
+        overflow: hidden;
         border-radius: 9999px;
-        width: 75vw;
-        height: 0.75em;
+        width: 80dvw;
+        height: fit-content;
         flex-direction: row;
         justify-content: flex-end;
         align-items: center;
+        gap: 0;
         font-size: 80%;
+    }
+
+    .active-task-info-container{
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
     }
 
     .active-task h3{
@@ -119,37 +169,42 @@
 }
 
 .name-with-timer{
-    margin-right: auto;
-        justify-self: flex-start;
-        max-width: 30%;
-        gap: 5px;
-        font-size: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    width: 7em;
+     gap: 5px;
+    font-size: 15px;
+    margin-right: 20px;
     }
 
 .active-task h4{
-    justify-self: flex-end;
-    position: relative;
-    display: flex;
-    font-size: fit-content;
-    text-wrap: nowrap;
+    border-radius: 0;
+    position: absolute;
+    left: 0;
+    width: 7em;
+    height: 100%;
+    padding: 0px;
     text-align: center;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    top:-2px;
-   padding: 8px 20px;
-   max-width: 25%;
-   max-height: 1.2em;
+    justify-content: center;
+    font-size: 15px;
+
 
 
 }
 .active-task-internal-number{
     text-align: start;
-    font-size: 10px;
+    font-size: 15px;
 }
 
 .name-and-internal-number-container{
     display: flex;
     flex-direction: row;
+    margin-left: auto;
+    font-size: 15px;
 }
 
 }

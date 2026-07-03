@@ -38,6 +38,7 @@ border: 1px solid gray;
 }
 
 .add-operator-cancel-button, .add-operator-add-button{
+    width: 7em;
     background-color: var(--light-color);
     font-family: var(--font-family-default);
     border-radius: 999px;
@@ -126,7 +127,6 @@ border: 1px solid gray;
     }
 
     .add-operator-cancel-button:hover{
-        background-color: var(--background);
         cursor: pointer;
     }
 }

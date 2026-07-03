@@ -32,6 +32,11 @@
 
 
 .editing-operator-button{
+    width: 5em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     font-family: var(--font-family-default);
     border-radius: 999px;
     padding: 5px 10px;
@@ -48,6 +53,11 @@
 }
 
 .cancel-operator-changes-button{
+    width: 5em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     background-color: var(--light-color);
     color: var(--secondary-color);
 }
