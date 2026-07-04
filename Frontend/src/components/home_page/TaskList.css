@@ -14,3 +14,20 @@
     word-break: break-word;
     margin-bottom: 1em;
 }
+
+.no-task-list-title{
+    font-family: var(--font-family-default);
+    color: var(--light-color);
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    width:50%;
+    padding: 2em;
+    
+    padding:0em 1em;
+    text-wrap: wrap;
+}

@@ -8,6 +8,11 @@
     gap:20px;
 
 }
+.no-list-title{
+    font-family: var(--font-family-default);
+    color: var(--secondary-color);
+    padding: 10px;
+}
 
 .settings-header{
     z-index: 100;

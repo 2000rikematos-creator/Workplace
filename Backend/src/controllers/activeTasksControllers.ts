@@ -1,4 +1,4 @@
-import {ActiveTaskRequest, ActiveTasks,ActiveTasksWithData, AuthMiddlewareRequest, EndActiveTaskRequest, FinishedTasks } from "../types/types.js";
+import {ManagerAuthResponse,ActiveTaskRequest, ActiveTasks,ActiveTasksWithData, AuthMiddlewareRequest, EndActiveTaskRequest, FinishedTasks } from "../types/types.js";
 import { Request,Response,NextFunction } from "express";
 import { v4 as uuid } from "uuid";
 import httpError from "../utils/customError.js";
@@ -49,9 +49,13 @@ async function endActiveTask(req:EndActiveTaskRequest,res:Response,next:NextFunc
  const id = req.params.id
     const {timeEnd} = req.body
     const activeTaskResponse = await pool.query("SELECT * FROM active_tasks WHERE id = $1",[id])
-    const activeTask = activeTaskResponse.rows[0]
-    const finishedTask = {...activeTask,timeEnd}
-    finishedTasks.push(finishedTask)
+    const activeTask = activeTaskResponse.rows[0];
+    const finishedTask:FinishedTasks = {id,operatorId:activeTask.operator_id,
+        taskId:activeTask.task_id,
+        workplaceId:activeTask.workplace_id,
+        timeStart:activeTask.time_start,
+        timeEnd}
+    await pool.query("INSERT INTO finished_tasks (id,operator_id,task_id,workplace_id,time_start,time_end) values($1,$2,$3,$4,$5,$6)",[finishedTask.id,finishedTask.operatorId,finishedTask.taskId,finishedTask.workplaceId,finishedTask.timeStart,finishedTask.timeEnd])
 
     await pool.query("DELETE FROM active_tasks WHERE id = $1",[id])
     
@@ -62,5 +66,16 @@ async function endActiveTask(req:EndActiveTaskRequest,res:Response,next:NextFunc
    
 }
 
-export {getAllActiveTasks, addActiveTask, endActiveTask}
+async function getFinishedTasks(req:Request,res:Response,next:NextFunction){
+    const customReq = req as ManagerAuthResponse
+    try{
+        if(customReq.workplace.id !== customReq.managerAuth.workplace){throw new httpError("Not authorized",401)}
+        const response = await pool.query("SELECT * FROM finished_tasks WHERE workplace_id = $1",[customReq.workplace.id])
+        console.log(response.rows)
+    }catch(error){
+        console.log(error)
+    }
+}
+
+export {getAllActiveTasks, addActiveTask, endActiveTask,getFinishedTasks}
 

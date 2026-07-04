@@ -9,7 +9,7 @@ type ActiveTasksListProps = {
 }
 
 function ActiveTasksList(props:ActiveTasksListProps){
-if (props.activeTasksList.length === 0) return null
+if (props.activeTasksList.length === 0) return <h1 className="no-active-tasks-title">No currently active tasks</h1>
 return <ul className="active-tasks-list">
 {props.activeTasksList.map((item)=><ActiveTask key={item.id} endTask={props.endTask} task={item}/>)}
 </ul>

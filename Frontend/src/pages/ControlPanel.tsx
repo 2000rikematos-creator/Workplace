@@ -13,6 +13,7 @@ import { AuthContext } from "../context/AuthContext";
 import ChangeCredentials from "../components/control_panel/ChangeCredentials";
 import MessageModal from "../components/modals/MessageModal";
 import { useNavigate } from "react-router";
+import GetReport from "../components/control_panel/GetReport";
 
 interface ControlPanelProps {
     menuIsClicked:boolean;
@@ -25,7 +26,7 @@ interface ControlPanelProps {
 function ControlPanel(props:ControlPanelProps){
 
 const [selectedOperator,setSelectedOperator] = useState<Operator|undefined>()
-const optionsList:ControlPanelOptionsTypes[] = ["Manage staff", "Manage tasks","Manage profile"]
+const optionsList:ControlPanelOptionsTypes[] = ["Manage staff", "Manage tasks","Manage profile","Get report"]
 const [taskList,setTaskList] = useState<Task[]>([])
 const [operatorsList, setOperatorsList] = useState<Operator[]>([])
 const [selectedOption,setSelectedOption] = useState<ControlPanelOptionsTypes|undefined>("Manage staff")
@@ -133,6 +134,9 @@ useEffect(()=>{
 },[selectedOption])
 
 function handleSelectOption(option:ControlPanelOptionsTypes){
+    if(option === "Get report"){
+        getReportData()
+    }
     props.setMenuIsClicked(false);
     setSuccessAddingOperator(true)
     const optionExists = optionsList.find((item)=>item === option)
@@ -390,6 +394,20 @@ async function verifySession(){
     }
    }
 
+     async function getReportData() {
+            try{
+                setisLoading(true)
+              const response = await fetch(`${backendUrl}/active-tasks/finished-tasks`,{method:"GET",headers:{"Authorization":`Bearer ${token}`,"Manager-Authorization":`Bearer ${managerToken}`}})
+                const responseData = response.json()
+                console.log(responseData)
+            }catch(error){
+                console.log(error)
+            }finally{
+                setisLoading(false)
+            }
+        }
+
+
 return <PageLayout>
     <MessageModal message={message}/>
     <ErrorModal onClosing={()=>setErrorMessage("")} errorMessage={errorMessage}/>
@@ -402,6 +420,7 @@ return <PageLayout>
     </SideBar>}
     
     <Enviornment>
+        <GetReport isShowing={selectedOption === "Get report"}/>
          <ManageTasks deleteTask={handleDeleteTask} addNewTask={handleAddNewTask} taskList={taskList} isShowing={selectedOption === optionsList[1]} />
         {props.windowWidth < 900 ? selectedOperator === undefined ? <ManageOperators selectedOperator={selectedOperator} addingOperator={!successAddingOperator} handleAddingOperator={(yn: boolean) => { setSuccessAddingOperator(!yn); if (yn === true) { setSelectedOperator(undefined) } }} selectOperator={handleSelectOperator} addOperator={handleAddOperator} isShowing={selectedOption === optionsList[0]} operatorsList={operatorsList} /> : <OperatorInfo isEditing={!successUpdatingOperator} handleEditOperatorButton={(yn: boolean) => { setSuccessUpdatingOperator(!yn) }} editOperator={handleEditOperator} deleteOperator={handleDeleteOperator} closeDetails={() => setSelectedOperator(undefined)} operatorSelected={selectedOption === optionsList[0] ? selectedOperator : undefined} /> : <React.Fragment> <ManageOperators selectedOperator={selectedOperator} addingOperator={!successAddingOperator} handleAddingOperator={(yn: boolean) => { setSuccessAddingOperator(!yn); if (yn === true) { setSelectedOperator(undefined) } }} selectOperator={handleSelectOperator} addOperator={handleAddOperator} isShowing={selectedOption === optionsList[0]} operatorsList={operatorsList} />
            <OperatorInfo isEditing={!successUpdatingOperator} handleEditOperatorButton={(yn:boolean)=>{setSuccessUpdatingOperator(!yn)}} editOperator={handleEditOperator} deleteOperator={handleDeleteOperator} closeDetails={()=>setSelectedOperator(undefined)} operatorSelected={selectedOption === optionsList[0] ? selectedOperator : undefined}/> </React.Fragment>} 

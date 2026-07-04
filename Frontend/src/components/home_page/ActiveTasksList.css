@@ -12,6 +12,18 @@
     margin-bottom: 5em;
 }
 
+.no-active-tasks-title{
+    font-family: var(--font-family-default);
+    color:var(--secondary-color);
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 @media(max-width:900px){
     .active-tasks-list{
         justify-content: center

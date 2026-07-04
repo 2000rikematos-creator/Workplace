@@ -106,10 +106,11 @@ function ManageOperators(props: GerirOperadoresProps) {
                     <SearchIcon onClick={handleSearchButton}/>
                 </div>}
                 <div className="manage-operators-list-container">
-                    <ul className="manage-operators-list">
+                    {props.operatorsList.length<1 ? <h2 className="no-list-title">Nothing to show</h2> : <ul className="manage-operators-list">
                 {input.length < 1 ? 
                     props.operatorsList.map((item: Operator) => <li style={props.selectedOperator?.id === item.id ? {backgroundColor:"var(--secondary-color)",color:"var(--light-color)"}:undefined} onMouseDown={()=>props.selectOperator(item.id)} className="manage-operators-list-item"><p className="manage-operators-list-item-name">{item.firstName} {item.lastName}</p> <p className="manage-operators-list-item-id">{item.internalNumber}</p></li>): corespondingList.map((item: Operator) => <li ref={listRef} onMouseDown={()=>props.selectOperator(item.id)} className="manage-operators-list-item"><p className="manage-operators-list-item-name">{item.firstName} {item.lastName}</p> <p className="manage-operators-list-item-id">{item.internalNumber}</p></li>)}
-                    </ul> 
+                    </ul> }
+                    
                 </div>
             
             </div>}

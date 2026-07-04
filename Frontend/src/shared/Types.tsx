@@ -103,5 +103,5 @@ export interface ManagerLoginResponseData extends apiResponseData {
     token:string
 }
 
-export type ControlPanelOptionsTypes = "Manage staff"| "Manage tasks"|"Manage profile";
+export type ControlPanelOptionsTypes = "Manage staff"| "Manage tasks"|"Manage profile"|"Get report";
 export type ManageProfileOptionsTypes = "Change company name"|"Change staff username"|"Change manager password"|"Change staff password"|"Delete workplace profile"

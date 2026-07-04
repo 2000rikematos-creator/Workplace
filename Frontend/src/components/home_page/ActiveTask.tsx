@@ -41,7 +41,7 @@ const [milliseconds,setMilliseconds] = useState<number>(()=>Date.now()-props.tas
         
         
       </div>
-      <p className="end-task-button" onClick={handleEndTask}>End task</p>
+      <p className="end-task-button" onClick={handleEndTask} tabIndex={0}>End task</p>
   
         </li>
 }

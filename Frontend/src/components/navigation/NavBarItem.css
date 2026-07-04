@@ -23,7 +23,6 @@
 .nav-bar-item:active{
     color: var(--secondary-color);
     background-color: white;
-    scale: 1.1;
 
 }
 

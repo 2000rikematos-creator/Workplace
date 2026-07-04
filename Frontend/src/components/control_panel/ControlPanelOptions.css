@@ -5,6 +5,7 @@
     text-align: start;
     display: flex;
     align-items: center;
+    white-space: nowrap;
     justify-content: flex-start;
     color: white;
     font-family: var(--font-family-default);

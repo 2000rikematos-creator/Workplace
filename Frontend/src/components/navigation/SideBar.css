@@ -7,7 +7,7 @@ aside{
     position: relative;
     margin-top: 0;
     width: fit-content;
-    max-width: 100dvw;
+    max-width: 50dvw;
     background-color: var(--secondary-color);
     overflow-y: auto;
     overflow-x: hidden;
@@ -49,6 +49,7 @@ aside::-webkit-scrollbar-thumb {
     position: absolute;
     top:4em;
     width: 100vw;
+    max-width: 100dvw;
   }
   .control-panel-menu{
     overflow-y: auto;
@@ -65,7 +66,6 @@ aside::-webkit-scrollbar-thumb {
     aside{
         z-index: 1000;
         position: absolute;
-        width: 100dvw;
         top: 4em;
         box-shadow: 0 0 15px -10px rgba(0, 0, 0, 1);
         box-shadow: 

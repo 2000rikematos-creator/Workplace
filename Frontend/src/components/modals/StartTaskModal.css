@@ -27,8 +27,8 @@ width: 100%;
 }
 
 .search-operator-form input{
-    border-radius: 15px;
-    padding: 5px 10px;
+    border-radius: 999px;
+    padding: 10px 10px;
 }
 
 .search-operator-form input{

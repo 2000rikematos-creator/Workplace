@@ -52,11 +52,10 @@ function ManageTasks(props:ManageTasksType){
             </div>:<React.Fragment><h2 className="settings-title">Manage tasks</h2> <AddIcon onClick={()=>setIsAddingTask(true)}/></React.Fragment>}
             </div>
             
-           
-            
-            <ul className="current-tasks-list">
+                    {props.taskList.length<1 ? <h2 className="no-list-title">Nothing to show</h2>:<ul className="current-tasks-list">
                 {props.taskList.map((item)=><li className="current-task-list-item"><p className="current-task-list-item">{item.task}</p> <DeleteIcon className="delete-task-button" onClick={()=>{setCurrentTask(item);setCurrentAction("deleteTask");setConfirmationQuestion("Are you sure you want to delete this task?")}}/></li>)}
-            </ul>
+            </ul>}
+            
         </div>
     </OptionsContainer>
 }

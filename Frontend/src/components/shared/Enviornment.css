@@ -3,6 +3,7 @@
     height:calc(100dvh - 4em) ;
     padding: 0em;
     position: relative;
+    min-width: 50dvw;
     top:4em;
     display: flex;
     flex-direction: row;
