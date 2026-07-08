@@ -1,10 +1,10 @@
-import {ManagerAuthResponse,ActiveTaskRequest, ActiveTasks,ActiveTasksWithData, AuthMiddlewareRequest, EndActiveTaskRequest, FinishedTasks } from "../types/types.js";
+import {ManagerAuthResponse,ActiveTaskRequest, ActiveTasks,ActiveTasksWithData, AuthMiddlewareRequest, EndActiveTaskRequest, FinishedTasks, GetFinishedTasksRequest } from "../types/types.js";
 import { Request,Response,NextFunction } from "express";
 import { v4 as uuid } from "uuid";
 import httpError from "../utils/customError.js";
 import pool from "../utils/db.js";
+import { finished } from "node:stream";
 
-let finishedTasks:FinishedTasks[] = []
 
 async function getAllActiveTasks(req:Request,res:Response,next:NextFunction){
     const customReq = req as AuthMiddlewareRequest
@@ -67,13 +67,21 @@ async function endActiveTask(req:EndActiveTaskRequest,res:Response,next:NextFunc
 }
 
 async function getFinishedTasks(req:Request,res:Response,next:NextFunction){
-    const customReq = req as ManagerAuthResponse
+    const customReq = req as GetFinishedTasksRequest
+    const optionInSeconds = (parseInt(customReq.params.option)*60)*60
+    const nowInSeconds = Math.floor(Date.now() / 1000)
+    const timeIntervalInSeconds = nowInSeconds - optionInSeconds
+    const timeIntervalInMillieSeconds = timeIntervalInSeconds *1000
+    console.log(timeIntervalInMillieSeconds)
     try{
         if(customReq.workplace.id !== customReq.managerAuth.workplace){throw new httpError("Not authorized",401)}
-        const response = await pool.query("SELECT * FROM finished_tasks WHERE workplace_id = $1",[customReq.workplace.id])
-        console.log(response.rows)
+        const response = await pool.query(`SELECT finished_tasks.id AS "id", operators.first_name AS "firstName", operators.last_name AS "lastName", operators.internal_number AS "internalNumber", tasks.task AS "task", finished_tasks.time_start AS "timeStart", finished_tasks.time_end AS "timeEnd" FROM finished_tasks INNER JOIN tasks ON tasks.id = finished_tasks.task_id INNER JOIN operators ON operators.id = finished_tasks.operator_id WHERE finished_tasks.workplace_id = $1 AND finished_tasks.time_end > $2 ORDER BY finished_tasks.time_end DESC`,[customReq.workplace.id,timeIntervalInMillieSeconds])
+        const finishedTasks = response.rows
+        console.log(finishedTasks)
+        res.status(200).json({message:"Success",data:finishedTasks})
     }catch(error){
         console.log(error)
+        res.status(500).json({message:"Internal error"})
     }
 }
 

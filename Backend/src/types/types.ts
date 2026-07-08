@@ -137,3 +137,7 @@ export interface DeleteProfileRequest extends AuthMiddlewareRequest{
 export interface ManagerAuthResponse extends AuthMiddlewareRequest{
     managerAuth:ManagerToken;
 }
+
+export interface GetFinishedTasksRequest extends ManagerAuthResponse{
+    params:{option:"8"|"24"|"168"};
+}

@@ -103,5 +103,19 @@ export interface ManagerLoginResponseData extends apiResponseData {
     token:string
 }
 
+export interface FinishedTasksWithData {
+    firstName:string,
+    lastName:string,
+    task:string,
+    id:string,
+    internalNumber:number,
+    timeStart:string,
+    timeEnd:string
+}
+
+export interface FinishedTasksWithDataResponse extends apiResponseData{
+    data:FinishedTasksWithData[]
+}
+
 export type ControlPanelOptionsTypes = "Manage staff"| "Manage tasks"|"Manage profile"|"Get report";
 export type ManageProfileOptionsTypes = "Change company name"|"Change staff username"|"Change manager password"|"Change staff password"|"Delete workplace profile"

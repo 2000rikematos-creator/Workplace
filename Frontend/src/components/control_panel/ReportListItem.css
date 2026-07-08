@@ -1,0 +1,17 @@
+.report-list-item{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap:10px;
+    padding: 10px 0px;
+}
+
+.report-list-item p{
+    text-transform: capitalize;
+}
+
+@media(any-hover: hover){
+    .report-list-item:hover{
+        background-color: var(--secondary-color);
+        color: var(--light-color);
+    }
+}

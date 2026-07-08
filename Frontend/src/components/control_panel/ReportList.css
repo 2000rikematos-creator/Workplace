@@ -1,0 +1,25 @@
+.report-list-table{
+    margin: 0em 1em;
+}
+.nothing-to-show-report{
+    font-family: var(--font-family-default);
+    text-align: center;
+    color: var(--secondary-color);
+    padding: 10px;
+}
+.report-list{
+    font-family: var(--font-family-default);
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.report-list-header{
+    padding-left: 5em;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1;
+    gap:10px;
+    border-bottom: solid 1px var(--secondary-color);
+    margin-bottom: 1em;
+    padding:5px 0px;
+}

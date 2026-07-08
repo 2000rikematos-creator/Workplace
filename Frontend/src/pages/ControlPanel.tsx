@@ -4,7 +4,7 @@ import SideBar from "../components/navigation/SideBar";
 import ControlPanelOptions from "../components/control_panel/ControlPanelOptions";
 import Enviornment from "../components/shared/Enviornment";
 import ManageOperators from "../components/control_panel/ManageOperators";
-import type {WorkplaceCreds, apiResponseData, apiResponseDataOperator, apiResponseDataOperatorlist, apiResponseDataTask, apiResponseDataTaskList, newOperator, Operator, Task, apiResponseDataUpdatedData,ControlPanelOptionsTypes } from "../shared/Types";
+import {type WorkplaceCreds, type apiResponseData, type apiResponseDataOperator, type apiResponseDataOperatorlist, type apiResponseDataTask, type apiResponseDataTaskList, type newOperator, type Operator, type Task, type apiResponseDataUpdatedData,type ControlPanelOptionsTypes, type FinishedTasksWithDataResponse,type FinishedTasksWithData } from "../shared/Types";
 import OperatorInfo from "../components/control_panel/OperatorInfo";
 import ManageTasks from "../components/control_panel/ManageTasks";
 import LoadingModal from "../components/modals/LoadingModal";
@@ -39,6 +39,7 @@ const [successAddingOperator,setSuccessAddingOperator] = useState<boolean>(true)
 const [successUpdatingOperator,setSuccessUpdatingOperator] = useState<boolean>(true)
 const [message,setMessage] = useState("")
 const [successUpdatingCreds,setSuccessUpdatingCreds] = useState<boolean|undefined>(undefined)
+const [reportData,setReportData] = useState<FinishedTasksWithData[]|undefined>(undefined)
 const navigate = useNavigate()
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL
@@ -135,7 +136,7 @@ useEffect(()=>{
 
 function handleSelectOption(option:ControlPanelOptionsTypes){
     if(option === "Get report"){
-        getReportData()
+        getReportData("8")
     }
     props.setMenuIsClicked(false);
     setSuccessAddingOperator(true)
@@ -394,14 +395,17 @@ async function verifySession(){
     }
    }
 
-     async function getReportData() {
+     async function getReportData(option:"8"|"24"|"168") {
             try{
                 setisLoading(true)
-              const response = await fetch(`${backendUrl}/active-tasks/finished-tasks`,{method:"GET",headers:{"Authorization":`Bearer ${token}`,"Manager-Authorization":`Bearer ${managerToken}`}})
-                const responseData = response.json()
-                console.log(responseData)
+              const response = await fetch(`${backendUrl}/active-tasks/finished-tasks/`+option,{method:"GET",headers:{"Authorization":`Bearer ${token}`,"Manager-Authorization":`Bearer ${managerToken}`}})
+                const responseData:FinishedTasksWithDataResponse = await response.json()
+                if(!response.ok){throw Error(responseData.message)}
+                setReportData(responseData.data)
             }catch(error){
-                console.log(error)
+                if(error instanceof Error){
+                    setErrorMessage(error.message)
+                }
             }finally{
                 setisLoading(false)
             }
@@ -420,7 +424,7 @@ return <PageLayout>
     </SideBar>}
     
     <Enviornment>
-        <GetReport isShowing={selectedOption === "Get report"}/>
+        <GetReport windowIsSmall={props.windowWidth<700} selectTime={(option)=>{getReportData(option)}} data={reportData} isShowing={selectedOption === "Get report" && reportData !== undefined}/>
          <ManageTasks deleteTask={handleDeleteTask} addNewTask={handleAddNewTask} taskList={taskList} isShowing={selectedOption === optionsList[1]} />
         {props.windowWidth < 900 ? selectedOperator === undefined ? <ManageOperators selectedOperator={selectedOperator} addingOperator={!successAddingOperator} handleAddingOperator={(yn: boolean) => { setSuccessAddingOperator(!yn); if (yn === true) { setSelectedOperator(undefined) } }} selectOperator={handleSelectOperator} addOperator={handleAddOperator} isShowing={selectedOption === optionsList[0]} operatorsList={operatorsList} /> : <OperatorInfo isEditing={!successUpdatingOperator} handleEditOperatorButton={(yn: boolean) => { setSuccessUpdatingOperator(!yn) }} editOperator={handleEditOperator} deleteOperator={handleDeleteOperator} closeDetails={() => setSelectedOperator(undefined)} operatorSelected={selectedOption === optionsList[0] ? selectedOperator : undefined} /> : <React.Fragment> <ManageOperators selectedOperator={selectedOperator} addingOperator={!successAddingOperator} handleAddingOperator={(yn: boolean) => { setSuccessAddingOperator(!yn); if (yn === true) { setSelectedOperator(undefined) } }} selectOperator={handleSelectOperator} addOperator={handleAddOperator} isShowing={selectedOption === optionsList[0]} operatorsList={operatorsList} />
            <OperatorInfo isEditing={!successUpdatingOperator} handleEditOperatorButton={(yn:boolean)=>{setSuccessUpdatingOperator(!yn)}} editOperator={handleEditOperator} deleteOperator={handleDeleteOperator} closeDetails={()=>setSelectedOperator(undefined)} operatorSelected={selectedOption === optionsList[0] ? selectedOperator : undefined}/> </React.Fragment>} 

@@ -1,8 +1,17 @@
 .get-report-container{
     width: fit-content;
+    max-width: 100dvw;
     height: fit-content;
 }
 
 .select-time-dropdown{
-    width: 15em;
+    width: auto;
+    padding: 5px;
+    border-radius: 0px;
+}
+
+.report-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
 }

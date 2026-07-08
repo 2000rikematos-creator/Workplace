@@ -10,7 +10,7 @@ router.post("/add",activeTasksControllers.addActiveTask)
 router.post("/end/:id",activeTasksControllers.endActiveTask)
 
 router.use(managerAuthorization)
-router.get("/finished-tasks",activeTasksControllers.getFinishedTasks)
+router.get("/finished-tasks/:option",activeTasksControllers.getFinishedTasks)
 
 
 
