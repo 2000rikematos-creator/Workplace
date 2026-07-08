@@ -9,6 +9,11 @@
     text-transform: capitalize;
 }
 
+.report-list-item:active{
+    background-color: var(--secondary-color);
+        color: var(--light-color);
+}
+
 @media(any-hover: hover){
     .report-list-item:hover{
         background-color: var(--secondary-color);
