@@ -18,7 +18,7 @@
     padding-left: 5em;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1;
+    grid-template-rows: auto;
     gap:10px;
     border-bottom: solid 1px var(--secondary-color);
     margin-bottom: 1em;
