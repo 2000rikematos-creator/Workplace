@@ -14,7 +14,7 @@ async function getAllActiveTasks(req:Request,res:Response,next:NextFunction){
 
     res.status(200).json({message:"success", data:correspondingActiveTasks})
     }catch(error){
-        return next(error)
+        return next(new httpError("Internal error",500))
     }
     
 }

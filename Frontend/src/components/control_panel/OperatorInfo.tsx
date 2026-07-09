@@ -85,7 +85,7 @@ function OperatorInfo({ operatorSelected, closeDetails, deleteOperator, editOper
             <div className="operator-detail operator-details-phone-number-conatiner"><PhoneIcon className="operator-details-icon phone-icon" /><h4 className="operator-details-phone-number">{operatorSelected.phone}</h4></div>
           </div>
 
-          <div className="operator-info-button-container"><DeleteIcon className="operator-details-button delete-icon" onClick={() => {setCurrentAction("deleteOperator"), setConfirmationQuestion("Pretende eliminar premanentemente este colaborador?")}} /><EditIcon className="operator-details-button edit-icon" onClick={() => handleEditOperatorButton(true)} /></div>
+          <div className="operator-info-button-container"><DeleteIcon className="operator-details-button delete-icon" onClick={() => {setCurrentAction("deleteOperator"), setConfirmationQuestion("Are you sure you want to permanently remove this team member?")}} /><EditIcon className="operator-details-button edit-icon" onClick={() => handleEditOperatorButton(true)} /></div>
         </React.Fragment>
 
         }

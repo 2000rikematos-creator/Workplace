@@ -18,6 +18,7 @@
 
 .nav-options{
     justify-content: start;
+    height: 100%;
 }
 
 .nav-bar-item:active{
