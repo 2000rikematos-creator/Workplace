@@ -413,7 +413,7 @@ async function verifySession(){
 
 
 return <PageLayout>
-    <MessageModal message={message}/>
+    <MessageModal  message={message}/>
     <ErrorModal onClosing={()=>setErrorMessage("")} errorMessage={errorMessage}/>
     <LoadingModal isShowing={isLoading}/>
 

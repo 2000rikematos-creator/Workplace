@@ -26,7 +26,7 @@ useEffect(()=>{if(props.windowIsSmall){
     if(!props.isShowing)return null
 
     return <OptionsContainer>
-        <MessageModal message={message}/>
+        <MessageModal onClosing={()=>setMessage("")} message={message}/>
         <div className="get-report-container">
             <div className="settings-header report-header">
                 <h2>Workplace report</h2>

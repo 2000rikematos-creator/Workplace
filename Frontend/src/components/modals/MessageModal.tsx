@@ -4,13 +4,14 @@ import CheckIcon from "../icons/CheckIcon";
 
 interface MessageModalProps {
     message:string
+    onClosing?:()=>void
 }
 
 function MessageModal(props:MessageModalProps){
 
     if(!props.message){return null}
 
-    return <Modal>
+    return <Modal onClosing={()=>props.onClosing!()}>
 <div className="message-modal"><div className="message-modal-header">
     <CheckIcon />
     </div> 
