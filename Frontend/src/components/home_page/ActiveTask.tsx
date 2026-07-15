@@ -44,7 +44,7 @@ const [milliseconds,setMilliseconds] = useState<number>((Date.now()+offset)-prop
     
     const id = setInterval(()=> {setMilliseconds((Date.now()+offset)-props.task.timeStart);console.log(offset)}, 1000);
     return () => clearInterval(id) ;
-  }, [props.task.timeStart]);
+  }, [props.task.timeStart,offset]);
    
      
 
