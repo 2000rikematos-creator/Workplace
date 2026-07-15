@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "./ActiveTask.css"
-import type { ActiveTasksWithData} from "../../shared/Types";
+import type { ActiveTasksWithData, apiCurrentTimeResponseData} from "../../shared/Types";
+import { AuthContext } from "../../context/AuthContext";
+import ErrorModal from "../modals/ErrorModal";
 
 
 type ActiveTaskProps = {
@@ -10,12 +12,37 @@ type ActiveTaskProps = {
 }
 
 function ActiveTask(props:ActiveTaskProps){
+
+  const backendUrl = import.meta.env.VITE_BACKEND_URL
+  const context = useContext(AuthContext)
+  const token = context?.token
+  const [offset,setOffset] = useState<number>(0)
+  const [errorMessage,setErrorMessage] = useState("")
+
+  useEffect(()=>{
+     async function getCurrentTime(){
+      try{
+        const response = await fetch(backendUrl+"/active-tasks/current-time",{headers:{"Authorization":`Bearer ${token}`}})
+        const responseData:apiCurrentTimeResponseData = await response.json();
+        if (!response.ok){throw Error("Internal error")}
+        setOffset(Date.now()-responseData.data)
+      }catch(error){
+        if(error instanceof Error){
+          setErrorMessage(error.message)
+        }
+      }
+    }
+
+    getCurrentTime()
+  },[])
+
+  
     
-const [milliseconds,setMilliseconds] = useState<number>(()=>Date.now()-props.task.timeStart)
+const [milliseconds,setMilliseconds] = useState<number>(()=>{return (Date.now()+offset)-props.task.timeStart})
 
    useEffect(() => {
     
-    const id = setInterval(()=> setMilliseconds(Date.now()-props.task.timeStart), 1000);
+    const id = setInterval(()=> {setMilliseconds((Date.now()+offset)-props.task.timeStart)}, 1000);
     return () => clearInterval(id) ;
   }, [props.task.timeStart]);
    
@@ -24,7 +51,10 @@ const [milliseconds,setMilliseconds] = useState<number>(()=>Date.now()-props.tas
     function handleEndTask(){
         props.endTask(props.task.id, Date.now())
     }
+
+
     return <li className="active-task">
+      <ErrorModal errorMessage={errorMessage} onClosing={()=>setErrorMessage("")}/>
       {props.task.taskName.length>15 ? <h4>{props.task.taskName.slice(0,15)} ...</h4> : <h4>{props.task.taskName}</h4>  }
       <div className="active-task-info-container">
         <div className="name-with-timer">

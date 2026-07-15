@@ -5,7 +5,7 @@ import type {ActiveTasksWithData } from "../../shared/Types";
 
 type ActiveTasksListProps = {
     activeTasksList:ActiveTasksWithData[]
-    endTask:(id:string,timeEnd:number)=>void
+    endTask:(id:string,timeEnd:number)=>void;
 }
 
 function ActiveTasksList(props:ActiveTasksListProps){

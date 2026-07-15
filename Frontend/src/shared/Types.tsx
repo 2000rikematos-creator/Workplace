@@ -52,6 +52,9 @@ export type LoginInfo = {
 export type apiResponseData = {
     message:string,
 }
+export interface apiCurrentTimeResponseData extends apiResponseData{
+data:number
+}
 
 export interface apiResponseDataTaskList extends apiResponseData {
 data:Task[]

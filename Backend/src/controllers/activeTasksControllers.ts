@@ -85,5 +85,10 @@ async function getFinishedTasks(req:Request,res:Response,next:NextFunction){
     }
 }
 
-export {getAllActiveTasks, addActiveTask, endActiveTask,getFinishedTasks}
+async function getCurrentTime(req:Request,res:Response,next:NextFunction) {
+    const currentTime = Date.now();
+    res.status(200).json({message:"success",data:currentTime}) 
+}
+
+export {getAllActiveTasks, addActiveTask, endActiveTask,getFinishedTasks, getCurrentTime}
 

@@ -6,6 +6,7 @@ import managerAuthorization from "../middleware/managerAuthorization.js";
 const router = Router()
 
 router.get("/all",activeTasksControllers.getAllActiveTasks)
+router.get("/current-time",activeTasksControllers.getCurrentTime)
 router.post("/add",activeTasksControllers.addActiveTask)
 router.post("/end/:id",activeTasksControllers.endActiveTask)
 
