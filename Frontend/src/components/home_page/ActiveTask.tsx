@@ -42,7 +42,7 @@ const [milliseconds,setMilliseconds] = useState<number>((Date.now()+offset)-prop
 
    useEffect(() => {
     
-    const id = setInterval(()=> {setMilliseconds((Date.now()+offset)-props.task.timeStart);console.log(offset)}, 1000);
+    const id = setInterval(()=> {setMilliseconds((Date.now()+offset)-props.task.timeStart)}, 1000);
     return () => clearInterval(id) ;
   }, [props.task.timeStart,offset]);
    
@@ -63,7 +63,7 @@ const [milliseconds,setMilliseconds] = useState<number>((Date.now()+offset)-prop
         <p className="active-task-internal-number">{props.task.internalNumber}</p>
       </div>
         <div className="timer-container">
-          <p>{Math.floor(milliseconds / 3600000)}h{Math.floor((milliseconds % 3600000) / 60000)}m{Math.floor((milliseconds % 60000) / 1000)}s</p>
+          <p>{Math.floor(Math.max(0,milliseconds) / 3600000)}h{Math.floor((Math.max(0,milliseconds) % 3600000) / 60000)}m{Math.floor((Math.max(0,milliseconds) % 60000) / 1000)}s</p>
       </div>
       </div>
       
