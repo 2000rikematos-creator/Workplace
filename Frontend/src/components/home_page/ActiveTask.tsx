@@ -38,11 +38,11 @@ function ActiveTask(props:ActiveTaskProps){
 
   
     
-const [milliseconds,setMilliseconds] = useState<number>(()=>{return (Date.now()+offset)-props.task.timeStart})
+const [milliseconds,setMilliseconds] = useState<number>((Date.now()+offset)-props.task.timeStart)
 
    useEffect(() => {
     
-    const id = setInterval(()=> {setMilliseconds((Date.now()+offset)-props.task.timeStart)}, 1000);
+    const id = setInterval(()=> {setMilliseconds((Date.now()+offset)-props.task.timeStart);console.log(offset)}, 1000);
     return () => clearInterval(id) ;
   }, [props.task.timeStart]);
    
