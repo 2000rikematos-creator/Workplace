@@ -1,6 +1,5 @@
 import { Router } from "express";
 import * as activeTasksControllers from "../controllers/activeTasksControllers.js"
-import { body } from "express-validator";
 import managerAuthorization from "../middleware/managerAuthorization.js";
 
 const router = Router()

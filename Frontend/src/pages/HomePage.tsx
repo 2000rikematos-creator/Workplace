@@ -3,7 +3,7 @@ import Enviornment from "../components/shared/Enviornment";
 import StartTaskModal from "../components/modals/StartTaskModal";
 import SideBar from "../components/navigation/SideBar";
 import PageLayout from "../components/shared/PageLayout";
-import {type Operator, type ActiveTasks, type Task,type apiResponseDataAllActiveTasks,type apiResponseData, type apiResponseDataAddActiveTask, type apiResponseDataTasks, type apiResponseDataOperatorsList, type ActiveTasksWithData, type apiCurrentTimeResponseData } from "../shared/Types";
+import {type Operator, type ActiveTasks, type Task,type apiResponseDataAllActiveTasks,type apiResponseData, type apiResponseDataAddActiveTask, type apiResponseDataTasks, type apiResponseDataOperatorsList, type ActiveTasksWithData } from "../shared/Types";
 import { useEffect, useState,useContext } from "react";
 import ErrorModal from "../components/modals/ErrorModal";
 import TaskList from "../components/home_page/TaskList";
@@ -31,7 +31,7 @@ function HomePage(props:HomePageProps){
     const [isLoading,setIsLoading] = useState(false)
     const context = useContext(AuthContext)
     const [confirmationQuestion,setConfirmationQuestion] = useState("")
-    const [taskToDelete,setTaskToDelete] = useState<{id:string,timeEnd:number}|undefined>(undefined)
+    const [taskToDelete,setTaskToDelete] = useState<string|undefined>(undefined)
     let token = context?.token
     
     
@@ -186,21 +186,22 @@ async function initializeEnv(){
         
     }
 
-    function confirmEndtask(id:string,timeEnd:number){
+    function confirmEndtask(id:string){
+        setTaskToDelete(id)
         setConfirmationQuestion("End task?")
-        setTaskToDelete({id,timeEnd})
+        
     }
 
     
 
-    async function handleEndTask(id:string, timeEnd:number){
+    async function handleEndTask(id:string){
 
         setIsLoading(true)
 
         const findTask = activeTasks.find((item)=>item.id === id)
         if(!findTask){return setErrorMessage("occoreu um erro")}
         try{
-            const response = await fetch(`${backendUrl}/active-tasks/end/${id}`,{method:"POST",headers:{"Content-Type":"application/json","Authorization":`Bearer ${token}`},body:JSON.stringify({timeEnd:timeEnd})})
+            const response = await fetch(`${backendUrl}/active-tasks/end/${id}`,{method:"POST",headers:{"Content-Type":"application/json","Authorization":`Bearer ${token}`},body:JSON.stringify({message:"Finished"})})
             const responseData = await response.json()
             if(!response.ok){throw Error(responseData.message)}
             setActiveTasks((prev)=>prev.filter((item)=>item.id !== id))
@@ -221,24 +222,8 @@ async function initializeEnv(){
     }
 
    async function handleConfirm(){
-    setIsLoading(true)
-        try{
-              const response = await fetch(backendUrl+"/active-tasks/current-time",{headers:{"Authorization":`Bearer ${token}`}})
-                const responseData:apiCurrentTimeResponseData = await response.json();
-                if (!response.ok){throw Error("Internal error")}
-                const currentServerTime = responseData.data;
-                 handleEndTask(taskToDelete!.id,currentServerTime)
+                handleEndTask(taskToDelete!)
                 setConfirmationQuestion("")
-              }catch(error){
-                if(error instanceof Error){
-                  setErrorMessage(error.message)
-                }
-              }finally{
-                setIsLoading(false)
-              }
-
-        
-        
     }
 
   

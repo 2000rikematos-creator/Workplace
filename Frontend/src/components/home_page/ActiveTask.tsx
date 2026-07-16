@@ -3,12 +3,11 @@ import "./ActiveTask.css"
 import type { ActiveTasksWithData, apiCurrentTimeResponseData} from "../../shared/Types";
 import { AuthContext } from "../../context/AuthContext";
 import ErrorModal from "../modals/ErrorModal";
-import LoadingModal from "../modals/LoadingModal";
 
 
 type ActiveTaskProps = {
     task:ActiveTasksWithData;
-    endTask:(id:string,timeEnd:number)=>void;
+    endTask:(id:string)=>void;
 
 }
 
@@ -19,7 +18,6 @@ function ActiveTask(props:ActiveTaskProps){
   const token = context?.token
   const [offset,setOffset] = useState(0)
   const [errorMessage,setErrorMessage] = useState("")
-  const [isLoading,setIsLoading] = useState(false)
 
 
 
@@ -49,27 +47,13 @@ const [milliseconds,setMilliseconds] = useState<number>(Date.now()-props.task.ti
   }, [props.task.timeStart,offset]);
 
    async function handleEndTask(){
-    setIsLoading(true)
-      try{
-        const response = await fetch(backendUrl+"/active-tasks/current-time",{headers:{"Authorization":`Bearer ${token}`}})
-        const responseData:apiCurrentTimeResponseData = await response.json();
-        if (!response.ok){throw Error("Internal error")}
-        const currentServerTime = responseData.data;
-        props.endTask(props.task.id, currentServerTime)
-      }catch(error){
-        if(error instanceof Error){
-          setErrorMessage(error.message)
-        }
-      }finally{
-        setIsLoading(false)
-      }
+    props.endTask(props.task.id)
 
     }
 
 
     return <li className="active-task">
       <ErrorModal errorMessage={errorMessage} onClosing={()=>setErrorMessage("")}/>
-        <LoadingModal isShowing={isLoading}/>
       {props.task.taskName.length>15 ? <h4>{props.task.taskName.slice(0,15)} ...</h4> : <h4>{props.task.taskName}</h4>  }
       <div className="active-task-info-container">
         <div className="name-with-timer">

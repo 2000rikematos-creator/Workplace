@@ -47,19 +47,18 @@ async function endActiveTask(req:EndActiveTaskRequest,res:Response,next:NextFunc
    
    try{
  const id = req.params.id
-    const {timeEnd} = req.body
     const activeTaskResponse = await pool.query("SELECT * FROM active_tasks WHERE id = $1",[id])
     const activeTask = activeTaskResponse.rows[0];
     const finishedTask:FinishedTasks = {id,operatorId:activeTask.operator_id,
         taskId:activeTask.task_id,
         workplaceId:activeTask.workplace_id,
         timeStart:activeTask.time_start,
-        timeEnd}
+        timeEnd:Date.now()}
     await pool.query("INSERT INTO finished_tasks (id,operator_id,task_id,workplace_id,time_start,time_end) values($1,$2,$3,$4,$5,$6)",[finishedTask.id,finishedTask.operatorId,finishedTask.taskId,finishedTask.workplaceId,finishedTask.timeStart,finishedTask.timeEnd])
 
     await pool.query("DELETE FROM active_tasks WHERE id = $1",[id])
     
-    res.status(200).json({message:"Task deleted successfully"})
+    res.status(200).json({message:"Task ended"})
    }catch(error){
     return next(error)
    }
