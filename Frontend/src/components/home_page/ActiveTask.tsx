@@ -43,7 +43,7 @@ const [milliseconds,setMilliseconds] = useState<number>(Date.now()-props.task.ti
   }, [props.task.timeStart,offset]);
 
     function handleEndTask(){
-        props.endTask(props.task.id, Date.now()-offset)
+        props.endTask(props.task.id, Date.now())
     }
 
 
