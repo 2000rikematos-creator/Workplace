@@ -16,17 +16,17 @@ function ActiveTask(props:ActiveTaskProps){
   const backendUrl = import.meta.env.VITE_BACKEND_URL
   const context = useContext(AuthContext)
   const token = context?.token
-  const [offset,setOffset] = useState<number>(0)
+  const [offset,setOffset] = useState(0)
   const [errorMessage,setErrorMessage] = useState("")
 
-  useEffect(()=>{
+ useEffect(()=>{
      async function getCurrentTime(){
       try{
         const response = await fetch(backendUrl+"/active-tasks/current-time",{headers:{"Authorization":`Bearer ${token}`}})
         const responseData:apiCurrentTimeResponseData = await response.json();
         if (!response.ok){throw Error("Internal error")}
-        const offset = Date.now()-responseData.data;
-        setOffset(offset)
+        const currentServerTime = responseData.data;
+        setOffset(Date.now()-currentServerTime);
       }catch(error){
         if(error instanceof Error){
           setErrorMessage(error.message)
@@ -35,7 +35,7 @@ function ActiveTask(props:ActiveTaskProps){
     }
     getCurrentTime()},[])
     
-const [milliseconds,setMilliseconds] = useState<number>(0)
+const [milliseconds,setMilliseconds] = useState<number>(Date.now()-props.task.timeStart)
 
    useEffect(() => {
     const id = setInterval(()=> {setMilliseconds((Date.now()-offset)-props.task.timeStart)}, 1000);
@@ -43,7 +43,7 @@ const [milliseconds,setMilliseconds] = useState<number>(0)
   }, [props.task.timeStart,offset]);
 
     function handleEndTask(){
-        props.endTask(props.task.id, Date.now())
+        props.endTask(props.task.id, Date.now()-offset)
     }
 
 
