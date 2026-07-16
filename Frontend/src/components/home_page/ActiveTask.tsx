@@ -40,7 +40,7 @@ const [milliseconds,setMilliseconds] = useState<number>(0)
    useEffect(() => {
     const id = setInterval(()=> {setMilliseconds((Date.now()-offset)-props.task.timeStart)}, 1000);
     return () => clearInterval(id) ;
-  }, [props.task.timeStart]);
+  }, [props.task.timeStart,offset]);
 
     function handleEndTask(){
         props.endTask(props.task.id, Date.now())
