@@ -3,7 +3,7 @@ import Enviornment from "../components/shared/Enviornment";
 import StartTaskModal from "../components/modals/StartTaskModal";
 import SideBar from "../components/navigation/SideBar";
 import PageLayout from "../components/shared/PageLayout";
-import {type Operator, type ActiveTasks, type Task,type apiResponseDataAllActiveTasks,type apiResponseData, type apiResponseDataAddActiveTask, type apiResponseDataTasks, type apiResponseDataOperatorsList, type ActiveTasksWithData } from "../shared/Types";
+import {type Operator, type ActiveTasks, type Task,type apiResponseDataAllActiveTasks,type apiResponseData, type apiResponseDataAddActiveTask, type apiResponseDataTasks, type apiResponseDataOperatorsList, type ActiveTasksWithData, type apiCurrentTimeResponseData } from "../shared/Types";
 import { useEffect, useState,useContext } from "react";
 import ErrorModal from "../components/modals/ErrorModal";
 import TaskList from "../components/home_page/TaskList";
@@ -220,9 +220,25 @@ async function initializeEnv(){
     
     }
 
-    function handleConfirm(){
-        handleEndTask(taskToDelete!.id,taskToDelete!.timeEnd)
-        setConfirmationQuestion("")
+   async function handleConfirm(){
+    setIsLoading(true)
+        try{
+              const response = await fetch(backendUrl+"/active-tasks/current-time",{headers:{"Authorization":`Bearer ${token}`}})
+                const responseData:apiCurrentTimeResponseData = await response.json();
+                if (!response.ok){throw Error("Internal error")}
+                const currentServerTime = responseData.data;
+                 handleEndTask(taskToDelete!.id,currentServerTime)
+                setConfirmationQuestion("")
+              }catch(error){
+                if(error instanceof Error){
+                  setErrorMessage(error.message)
+                }
+              }finally{
+                setIsLoading(false)
+              }
+
+        
+        
     }
 
   
