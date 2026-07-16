@@ -25,28 +25,22 @@ function ActiveTask(props:ActiveTaskProps){
         const response = await fetch(backendUrl+"/active-tasks/current-time",{headers:{"Authorization":`Bearer ${token}`}})
         const responseData:apiCurrentTimeResponseData = await response.json();
         if (!response.ok){throw Error("Internal error")}
-        setOffset(Date.now()-responseData.data)
+        const offset = Date.now()-responseData.data;
+        setOffset(offset)
       }catch(error){
         if(error instanceof Error){
           setErrorMessage(error.message)
         }
       }
     }
-
-    getCurrentTime()
-  },[])
-
-  
+    getCurrentTime()},[])
     
-const [milliseconds,setMilliseconds] = useState<number>((Date.now()+offset)-props.task.timeStart)
+const [milliseconds,setMilliseconds] = useState<number>(0)
 
    useEffect(() => {
-    
-    const id = setInterval(()=> {setMilliseconds((Date.now()+offset)-props.task.timeStart)}, 1000);
+    const id = setInterval(()=> {setMilliseconds((Date.now()-offset)-props.task.timeStart)}, 1000);
     return () => clearInterval(id) ;
-  }, [props.task.timeStart,offset]);
-   
-     
+  }, [props.task.timeStart]);
 
     function handleEndTask(){
         props.endTask(props.task.id, Date.now())
