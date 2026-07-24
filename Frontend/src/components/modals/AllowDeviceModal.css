@@ -1,0 +1,51 @@
+.allow-device-button-container{
+    padding: 2em;
+    display: flex;
+    gap: 0px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
+.confirmation-modal h2{
+    position: relative;
+    top:-20px;
+    font-weight: 200;
+   font-size: 20px;
+}
+
+.allow-device-button-container .allow-device-button{
+    width: auto;
+    background-color: var(--light-color);
+    width: 100%;
+    margin: 0em;
+    border-radius: 999px;
+    font-weight: 200;
+    padding: 10px 15px;
+    border: 1px solid var(--secondary-color);
+}
+
+.allow-device-button:active{
+    scale: 1.1;
+}
+
+.allow-device-button-container input{
+    width: fit-content;
+    margin-bottom: 0em;
+   padding: 12px 10px;
+    border-radius: 999px;
+    border: 1px solid rgb(150, 150, 150);
+}
+
+.allow-device-button-container .allow-device-button:active{
+        background-color: var(--secondary-color);
+        color: var(--light-color);
+    }
+
+@media(any-hover: hover){
+    .allow-device-button-container .allow-device-button:hover{
+        background-color: var(--secondary-color);
+        color: var(--light-color);
+    }
+}

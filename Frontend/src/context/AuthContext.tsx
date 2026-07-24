@@ -46,6 +46,7 @@ function AuthProvider(props:AuthProviderProps){
     }
 
     function login(creds:Required<Pick<WorkplaceCreds,"companyName"|"loginName"|"id">>,token:string){
+
         localStorage.setItem("creds",JSON.stringify(creds))
         localStorage.setItem("token",token)
         setWorkplaceData(creds)

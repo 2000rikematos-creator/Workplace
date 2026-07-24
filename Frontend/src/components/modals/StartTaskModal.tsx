@@ -31,7 +31,7 @@ function StartTaskModal(props: StartTaskModalProps) {
             <h1>{props.task.task}</h1>
             <div className="search-operator-form-with-results">
                 <form className="search-operator-form">
-                    <input type="text" placeholder="Team member" onChange={handleChange} value={input} autoFocus/>
+                    <input type="text" placeholder="Team Member" onChange={handleChange} value={input} autoFocus/>
     
                 </form>
                 {input.length > 1 ? <ul className="operators-coresponding-list"> {props.operatorsCorespondingArray.length < 1 ? <li className="operators-coresponding-list-item">No Results</li> : props.operatorsCorespondingArray.map((item) => <li className="operators-coresponding-list-item" onClick={()=>{props.selectOperator(item.id,props.task.id);setInput("")}}><p className="operators-coresponding-list-item-name">{item.firstName} {item.lastName}</p><p>{item.internalNumber}</p></li>)} </ul>: null}

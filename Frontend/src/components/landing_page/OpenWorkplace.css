@@ -27,6 +27,12 @@
     
 }
 
+.workplace-settings-form .submit-login-button:active{
+        background-color: var(--secondary-color);
+        color: var(--light-color);
+    }
+
+
 @media(any-hover: hover){
     .workplace-settings-form .submit-login-button:hover{
         cursor: pointer;

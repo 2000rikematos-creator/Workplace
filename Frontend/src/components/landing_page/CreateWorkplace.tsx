@@ -34,12 +34,12 @@ return <WorkPlaceOptionsContainer>
     <ErrorModal errorMessage={errorMessage} onClosing={()=>{setErrorMessage("")}}/>
     <form className="workplace-settings-form" onSubmit={handleSubmit}>
         
-        <input name="companyName" type="text" placeholder="Company name" onChange={handleChange} value={workplaceInputs.companyName}/>
-        <input name="loginName" type="text" placeholder="Staff username" onChange={handleChange} value={workplaceInputs.loginName}/>
-        <input name="managerPassword" type="password" placeholder="Manager password" onChange={handleChange} value={workplaceInputs.managerPassword}/>
-        <input name="repeatManagerPassword" type="password" placeholder="Repeat manager password" onChange={handleChange} value={workplaceInputs.repeatManagerPassword}/>
-        <input name="operatorPassword" type="password" placeholder="Staff password" onChange={handleChange} value={workplaceInputs.operatorPassword}/>
-        <input name="repeatOperatorPassword" type="password" placeholder="Repeat staff password" onChange={handleChange} value={workplaceInputs.repeatOperatorPassword}/>
+        <input name="companyName" type="text" placeholder="Company Name" onChange={handleChange} value={workplaceInputs.companyName}/>
+        <input name="loginName" type="text" placeholder="Staff Username" onChange={handleChange} value={workplaceInputs.loginName}/>
+        <input name="managerPassword" type="password" placeholder="Manager Password" onChange={handleChange} value={workplaceInputs.managerPassword}/>
+        <input name="repeatManagerPassword" type="password" placeholder="Repeat Manager Password" onChange={handleChange} value={workplaceInputs.repeatManagerPassword}/>
+        <input name="operatorPassword" type="password" placeholder="Staff Password" onChange={handleChange} value={workplaceInputs.operatorPassword}/>
+        <input name="repeatOperatorPassword" type="password" placeholder="Repeat Staff Password" onChange={handleChange} value={workplaceInputs.repeatOperatorPassword}/>
         <input className="submit-login-button" type="submit" value="Sign up"/>
 
     </form>

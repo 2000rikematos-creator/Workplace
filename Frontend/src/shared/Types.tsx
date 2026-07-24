@@ -44,6 +44,10 @@ export type WorkplaceCreds = {
     id:string;
 }
 
+export interface VerifyDeviceResponse extends apiResponseData{
+message:"Device allowed"|"Device not allowed"
+}
+
 export type LoginInfo = {
     loginName:string;
     operatorPassword:string;
@@ -120,5 +124,16 @@ export interface FinishedTasksWithDataResponse extends apiResponseData{
     data:FinishedTasksWithData[]
 }
 
-export type ControlPanelOptionsTypes = "Manage staff"| "Manage tasks"|"Manage profile"|"Get report";
+export interface AllowedDevicesType {
+    id:string;
+    name:string;
+    fingerprint:string;
+}
+
+
+export interface AllowedDevicesResponse extends apiResponseData {
+    data:AllowedDevicesType[];
+} 
+
+export type ControlPanelOptionsTypes = "Manage staff"| "Manage tasks"|"Manage profile"|"Get report"|"Allowed devices";
 export type ManageProfileOptionsTypes = "Change company name"|"Change staff username"|"Change manager password"|"Change staff password"|"Delete workplace profile"

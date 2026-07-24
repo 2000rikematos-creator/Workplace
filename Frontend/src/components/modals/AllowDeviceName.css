@@ -1,0 +1,37 @@
+.allow-device-modal{
+    overflow: hidden;
+    border-radius: 15px;
+    width: fit-content;
+}
+
+.allow-device-modal input{
+    padding: 15px;
+    width: 100%;
+}
+
+.device-button-container{
+    display:flex ;
+    flex-direction: row;
+}
+
+.allow-device-modal button{
+    width: 100%;
+    padding: 10px 0px;
+    background-color: var(--light-color);
+    border:0px;
+    font-family: var(--font-family-default);
+    font-weight: 600;
+}
+
+.allow-device-modal button:active{
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+}
+
+@media(any-hover: hover){
+    .allow-device-modal button:hover{
+        cursor: pointer;
+        background-color: var(--secondary-color);
+        color: var(--light-color);
+    }
+}

@@ -4,7 +4,7 @@ import SideBar from "../components/navigation/SideBar";
 import ControlPanelOptions from "../components/control_panel/ControlPanelOptions";
 import Enviornment from "../components/shared/Enviornment";
 import ManageOperators from "../components/control_panel/ManageOperators";
-import {type WorkplaceCreds, type apiResponseData, type apiResponseDataOperator, type apiResponseDataOperatorlist, type apiResponseDataTask, type apiResponseDataTaskList, type newOperator, type Operator, type Task, type apiResponseDataUpdatedData,type ControlPanelOptionsTypes, type FinishedTasksWithDataResponse,type FinishedTasksWithData } from "../shared/Types";
+import {type WorkplaceCreds, type apiResponseData, type apiResponseDataOperator, type apiResponseDataOperatorlist, type apiResponseDataTask, type apiResponseDataTaskList, type newOperator, type Operator, type Task, type apiResponseDataUpdatedData,type ControlPanelOptionsTypes, type FinishedTasksWithDataResponse,type FinishedTasksWithData, type AllowedDevicesType, type AllowedDevicesResponse } from "../shared/Types";
 import OperatorInfo from "../components/control_panel/OperatorInfo";
 import ManageTasks from "../components/control_panel/ManageTasks";
 import LoadingModal from "../components/modals/LoadingModal";
@@ -14,6 +14,7 @@ import ChangeCredentials from "../components/control_panel/ChangeCredentials";
 import MessageModal from "../components/modals/MessageModal";
 import { useNavigate } from "react-router";
 import GetReport from "../components/control_panel/GetReport";
+import AllowedDevices from "../components/control_panel/AllowedDevices";
 
 interface ControlPanelProps {
     menuIsClicked:boolean;
@@ -26,7 +27,7 @@ interface ControlPanelProps {
 function ControlPanel(props:ControlPanelProps){
 
 const [selectedOperator,setSelectedOperator] = useState<Operator|undefined>()
-const optionsList:ControlPanelOptionsTypes[] = ["Manage staff", "Manage tasks","Manage profile","Get report"]
+const optionsList:ControlPanelOptionsTypes[] = ["Manage staff", "Manage tasks","Manage profile","Get report","Allowed devices"]
 const [taskList,setTaskList] = useState<Task[]>([])
 const [operatorsList, setOperatorsList] = useState<Operator[]>([])
 const [selectedOption,setSelectedOption] = useState<ControlPanelOptionsTypes|undefined>("Manage staff")
@@ -40,6 +41,7 @@ const [successUpdatingOperator,setSuccessUpdatingOperator] = useState<boolean>(t
 const [message,setMessage] = useState("")
 const [successUpdatingCreds,setSuccessUpdatingCreds] = useState<boolean|undefined>(undefined)
 const [reportData,setReportData] = useState<FinishedTasksWithData[]|undefined>(undefined)
+const [allowedDevices,setAllowedDevices] = useState<AllowedDevicesType[]>([])
 const navigate = useNavigate()
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL
@@ -134,7 +136,25 @@ useEffect(()=>{
     
 },[selectedOption])
 
+async function getAllowedDevices(){
+    setisLoading(true)
+try{
+    const response = await fetch(backendUrl+"/allowed-devices/all",{headers:{"Authorization":`Bearer ${token}`,"Manager-Authorization":`Bearer ${managerToken}`}})
+    const responseData:AllowedDevicesResponse = await response.json();
+    setAllowedDevices(responseData.data)
+}catch(error){
+if(error instanceof Error){
+    setErrorMessage(error.message)
+}
+}finally{
+    setisLoading(false)
+}
+}
+
 function handleSelectOption(option:ControlPanelOptionsTypes){
+    if(option === "Allowed devices"){
+        getAllowedDevices()
+    }
     if(option === "Get report"){
         getReportData("8")
     }
@@ -412,6 +432,24 @@ async function verifySession(){
         }
 
 
+        async function handleRemoveDevice(device:AllowedDevicesType) {
+            setisLoading(true)
+            try{
+                const response = await fetch(backendUrl+`/allowed-devices/delete/${device.id}`,{method:"DELETE",headers:{"Authorization":`Bearer ${token}`,"Manager-Authorization":`Bearer ${managerToken}`}})
+                const responseData:apiResponseData = await response.json();
+                if(!response.ok){
+                    throw Error(responseData.message)
+                }
+                setAllowedDevices((prev)=>prev.filter((item)=>item.id !== device.id))
+            }catch(error){
+                if(error instanceof Error){
+                    setErrorMessage(error.message)
+                }
+            }finally{
+                setisLoading(false)
+            }
+        }
+
 return <PageLayout>
     <MessageModal  message={message}/>
     <ErrorModal onClosing={()=>setErrorMessage("")} errorMessage={errorMessage}/>
@@ -424,6 +462,7 @@ return <PageLayout>
     </SideBar>}
     
     <Enviornment>
+        <AllowedDevices removeDevice={handleRemoveDevice} allowedDevices={allowedDevices} isShowing={selectedOption === "Allowed devices"}/>
         <GetReport windowIsSmall={props.windowWidth<500} selectTime={(option)=>{getReportData(option)}} data={reportData} isShowing={selectedOption === "Get report" && reportData !== undefined}/>
          <ManageTasks deleteTask={handleDeleteTask} addNewTask={handleAddNewTask} taskList={taskList} isShowing={selectedOption === optionsList[1]} />
         {props.windowWidth < 900 ? selectedOperator === undefined ? <ManageOperators selectedOperator={selectedOperator} addingOperator={!successAddingOperator} handleAddingOperator={(yn: boolean) => { setSuccessAddingOperator(!yn); if (yn === true) { setSelectedOperator(undefined) } }} selectOperator={handleSelectOperator} addOperator={handleAddOperator} isShowing={selectedOption === optionsList[0]} operatorsList={operatorsList} /> : <OperatorInfo isEditing={!successUpdatingOperator} handleEditOperatorButton={(yn: boolean) => { setSuccessUpdatingOperator(!yn) }} editOperator={handleEditOperator} deleteOperator={handleDeleteOperator} closeDetails={() => setSelectedOperator(undefined)} operatorSelected={selectedOption === optionsList[0] ? selectedOperator : undefined} /> : <React.Fragment> <ManageOperators selectedOperator={selectedOperator} addingOperator={!successAddingOperator} handleAddingOperator={(yn: boolean) => { setSuccessAddingOperator(!yn); if (yn === true) { setSelectedOperator(undefined) } }} selectOperator={handleSelectOperator} addOperator={handleAddOperator} isShowing={selectedOption === optionsList[0]} operatorsList={operatorsList} />

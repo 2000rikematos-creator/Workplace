@@ -18,12 +18,11 @@
 .error-modal button{
     letter-spacing: 1px;
     font-size: 15px;
-    font-weight: 600;
     width: fit-content;
-    border: 2px solid var(--default-orange);
+    border: 1px solid var(--default-orange);
     background-color: var(--default-orange);
     color: var(--light-color);
-    font-weight: 700;
+    font-weight: 400;
     border-radius: 15px;
     margin-bottom: 2em;
     padding:5px 10px;
@@ -52,11 +51,9 @@
 
 @media(any-hover: hover){
     .error-modal button:hover{
+        scale: 1.1;
         cursor: pointer;
-        background-color: var(--light-color);
-        color: var(--default-orange);
-        box-shadow: 0px 0px;
-        border:2px solid var(--default-orange);
+       
     }
 }
 

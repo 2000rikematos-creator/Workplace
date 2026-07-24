@@ -32,11 +32,12 @@ width: 100%;
 }
 
 .search-operator-form input{
-    width: 88%;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .search-operator-form-with-results{
-    border-radius: 15px 15px 15px 15px;
+    border-radius:20px;
     display: flex;
     flex-direction: column;
     gap:0px;
@@ -53,6 +54,7 @@ width: 100%;
     flex-direction: column;
     max-height: 100%;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .operators-coresponding-list::-webkit-scrollbar {
@@ -70,6 +72,7 @@ width: 100%;
 .operators-coresponding-list-item{
     gap:1em;
     max-width: 100%;
+    overflow-x: hidden;
     text-transform: capitalize;
     border-radius: 15px;
     font-family: var(--font-family-default);
@@ -79,6 +82,7 @@ width: 100%;
     list-style-type: none;
     display: flex;
     flex-direction: row;
+     flex-grow: 1;
 
 }
 
