@@ -18,6 +18,7 @@
 .allow-device-button-container .allow-device-button{
     width: auto;
     background-color: var(--light-color);
+    color: var(--secondary-color);
     width: 100%;
     margin: 0em;
     border-radius: 999px;
@@ -31,10 +32,12 @@
 }
 
 .allow-device-button-container input{
-    width: fit-content;
-    margin-bottom: 0em;
-   padding: 12px 10px;
+    background-color: var(--light-color);
+    width: 85%;
+    margin: 0em;
     border-radius: 999px;
+    font-weight: 200;
+    padding: 10px 15px;
     border: 1px solid rgb(150, 150, 150);
 }
 
@@ -47,5 +50,11 @@
     .allow-device-button-container .allow-device-button:hover{
         background-color: var(--secondary-color);
         color: var(--light-color);
+    }
+}
+
+@media(max-width:900px){
+    .allow-device-button-container input{
+        padding: 15px 15px;
     }
 }
