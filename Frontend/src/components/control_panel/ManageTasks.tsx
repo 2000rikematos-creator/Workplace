@@ -46,7 +46,7 @@ function ManageTasks(props:ManageTasksType){
                     <input autoFocus type="text" onChange={handleAddTaskInput} value={taskInput} placeholder="task"/>
                 <div className="manage-tasks-add-task-form-button-container">
                     <button className="add-task" onClick={()=>{props.addNewTask(taskInput); setIsAddingTask(false);setTaskInput("")}}>Add</button>
-                <button className="cancel-add-task" onClick={()=>{setIsAddingTask(false); setTaskInput("")}} className="manage-tasks-add-task-form-cancel-button">Cancel</button> </div>
+                <button onClick={()=>{setIsAddingTask(false); setTaskInput("")}} className="manage-tasks-add-task-form-cancel-button">Cancel</button> </div>
                 </div>
                 
             </div>:<React.Fragment><h2 className="settings-title">Manage tasks</h2> <AddIcon onClick={()=>setIsAddingTask(true)}/></React.Fragment>}
