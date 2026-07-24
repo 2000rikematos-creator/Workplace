@@ -7,12 +7,14 @@ import errorsValidation from "../middleware/errorsValidation.js";
 
 const router = Router()
 
+
+
 router.post("/create-workplace",[body("companyName").notEmpty().withMessage("Please fill the company name"),body("loginName").notEmpty().withMessage("PLease fill the staff username, it will be used to open the workplace").isLength({min:6}).withMessage("For safety reasons the staff username needs to have at least 6 characters"),body("managerPassword").notEmpty().withMessage("Please fill the manager password").isLength({min:7}).withMessage("Password too short"),body("operatorPassword").notEmpty().withMessage("Please fill the staff password").isLength({min:7}).withMessage("Password too short")],errorsValidation,settingsControllers.createWorkplace)
 router.post("/open-workplace",[body("loginName").notEmpty().withMessage("Please fill the staff username"),body("operatorPassword").notEmpty().withMessage("Please fill the password")],errorsValidation,settingsControllers.openWorkplace)
+router.post("/manager",settingsControllers.loginManager)
 
 router.use(auth as RequestHandler)
 
-router.post("/manager",settingsControllers.loginManager)
 router.get("/verify-session",settingsControllers.verifySession)
 
 router.use(managerAuthorization)

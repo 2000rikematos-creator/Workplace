@@ -72,6 +72,15 @@ export interface AuthMiddlewareRequest extends Request{
     workplace:token
 }
 
+export interface verifyDeviceRequest extends Request {
+body:{fingerprint:string,companyId:string}
+}
+
+export interface addDeviceRequest extends Request {
+    body:{fingerprint:string,companyId:string,name:string}
+}
+
+
 export interface addOperatorType extends AuthMiddlewareRequest{
     body:newOperator;
     managerAuth:ManagerToken;
@@ -136,8 +145,20 @@ export interface DeleteProfileRequest extends AuthMiddlewareRequest{
 
 export interface ManagerAuthResponse extends AuthMiddlewareRequest{
     managerAuth:ManagerToken;
+    workplace:token;
 }
 
 export interface GetFinishedTasksRequest extends ManagerAuthResponse{
     params:{option:"8"|"24"|"168"};
 }
+
+export interface AllowedDevices {
+    id:string;
+    name:string;
+    fingerprint:string;
+}
+
+export interface RemoveAllowedDevice extends ManagerAuthResponse {
+    params:{id:string};
+}
+

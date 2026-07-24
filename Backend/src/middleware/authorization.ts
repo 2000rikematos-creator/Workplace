@@ -8,6 +8,7 @@ import dotenv from "dotenv"
 dotenv.config()
 
 function auth(req:AuthMiddlewareRequest,res:Response,next:NextFunction){
+    
     const secret = process.env.SECRET_TOKEN_KEY
     try{
         const bearerToken = req.headers["authorization"]
@@ -19,6 +20,7 @@ function auth(req:AuthMiddlewareRequest,res:Response,next:NextFunction){
         customReq.workplace = decoded as tokenType
         next()
     }catch(error){
+        console.log(error)
         if(error instanceof jwt.TokenExpiredError){
             return next(new httpError("Session expired",401))
         }else if(error instanceof Error){

@@ -9,6 +9,10 @@ import tasksRoutes from "./routes/tasksRoutes.js"
 import cors from "cors";
 import httpError from "./utils/customError.js";
 import auth from './middleware/authorization.js';
+import { body } from 'express-validator';
+import errorsValidation from './middleware/errorsValidation.js';
+import * as allowedDevicesControllers from "./controllers/allowedDevicesControllers.js"
+import allowedDevicesRoutes from "./routes/allowedDevicesRoutes.js"
 
 
 
@@ -22,6 +26,8 @@ const frontendURL = process.env.FRONTEND_URL;
 app.use(cors({ origin: frontendURL }));
 app.use(express.json())
 
+
+app.use("/allowed-devices",allowedDevicesRoutes)
 app.use("/settings",settingsRoutes)
 
 app.use(auth as express.RequestHandler)

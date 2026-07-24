@@ -40,3 +40,14 @@ CREATE TABLE IF NOT EXISTS public.active_tasks (
     CONSTRAINT active_tasks_task_id_fkey FOREIGN KEY (task_id) REFERENCES public.tasks(id) ON DELETE CASCADE,
     CONSTRAINT active_tasks_workplace_id_fkey FOREIGN KEY (workplace_id) REFERENCES public.workplaces(id) ON DELETE CASCADE
 );
+
+create table if not exists public.allowed_devices (
+  id uuid not null,
+  company_id uuid not null,
+  fingerprint character varying(40) not null,
+  name character varying(40) not null,
+  constraint allowed_devices_pkey primary key (id),
+  constraint allowed_devices_companyid_fkey foreign KEY (company_id) references workplaces (id) on delete CASCADE
+) TABLESPACE pg_default;
+
+
