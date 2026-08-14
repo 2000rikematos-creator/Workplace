@@ -3,8 +3,6 @@ import { Request,Response,NextFunction } from "express";
 import { v4 as uuid } from "uuid";
 import httpError from "../utils/customError.js";
 import pool from "../utils/db.js";
-import { finished } from "node:stream";
-
 
 async function getAllActiveTasks(req:Request,res:Response,next:NextFunction){
     const customReq = req as AuthMiddlewareRequest
@@ -27,7 +25,7 @@ async function addActiveTask(req:Request,res:Response,next:NextFunction){
     const newActiveTask:ActiveTasks = {id:uuid(),operatorId:customReq.body.operatorId,taskId:customReq.body.taskId,timeStart:currentTimeInMilliseconds,workplaceId:customReq.workplace.id}
     
     const operatorIsAlreadyActive =  await pool.query("SELECT * FROM active_tasks WHERE operator_id = $1",[newActiveTask.operatorId])
-    if (operatorIsAlreadyActive.rows.length>1){throw new httpError("Termina primeiro a tarefa atual",401)}
+    if (operatorIsAlreadyActive.rows.length >= 1){throw new httpError("Termina primeiro a tarefa atual",401)}
 
     await pool.query("INSERT INTO active_tasks (id,operator_id,task_id,time_start,workplace_id) VALUES ($1,$2,$3,$4,$5)",
      [newActiveTask.id,newActiveTask.operatorId,newActiveTask.taskId,newActiveTask.timeStart,newActiveTask.workplaceId])
@@ -71,16 +69,13 @@ async function getFinishedTasks(req:Request,res:Response,next:NextFunction){
     const nowInSeconds = Math.floor(Date.now() / 1000)
     const timeIntervalInSeconds = nowInSeconds - optionInSeconds
     const timeIntervalInMillieSeconds = timeIntervalInSeconds *1000
-    console.log(timeIntervalInMillieSeconds)
     try{
         if(customReq.workplace.id !== customReq.managerAuth.workplace){throw new httpError("Not authorized",401)}
         const response = await pool.query(`SELECT finished_tasks.id AS "id", operators.first_name AS "firstName", operators.last_name AS "lastName", operators.internal_number AS "internalNumber", tasks.task AS "task", finished_tasks.time_start AS "timeStart", finished_tasks.time_end AS "timeEnd" FROM finished_tasks INNER JOIN tasks ON tasks.id = finished_tasks.task_id INNER JOIN operators ON operators.id = finished_tasks.operator_id WHERE finished_tasks.workplace_id = $1 AND finished_tasks.time_end > $2 ORDER BY finished_tasks.time_end DESC`,[customReq.workplace.id,timeIntervalInMillieSeconds])
         const finishedTasks = response.rows
-        console.log(finishedTasks)
         res.status(200).json({message:"Success",data:finishedTasks})
     }catch(error){
-        console.log(error)
-        res.status(500).json({message:"Internal error"})
+        return next(new httpError("Internal error",500))
     }
 }
 
