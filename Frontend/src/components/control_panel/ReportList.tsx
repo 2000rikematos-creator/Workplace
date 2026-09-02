@@ -27,8 +27,7 @@ return <div className="report-list-table">
         </div>
     {props.list.map((item)=><ReportListItem
     internalNumber={item.internalNumber}
-    firstName={item.firstName}
-     lastName={item.lastName}
+    operatorName={item.operatorName}
     task={item.task} 
     timeStart={item.timeStart} 
     timeEnd={item.timeEnd} 

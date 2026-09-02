@@ -111,8 +111,7 @@ export interface ManagerLoginResponseData extends apiResponseData {
 }
 
 export interface FinishedTasksWithData {
-    firstName:string,
-    lastName:string,
+    operatorName:string,
     task:string,
     id:string,
     internalNumber:number,

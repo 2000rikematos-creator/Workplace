@@ -7,7 +7,7 @@ import "./ReportListItem.css"
     const timeEnd = new Date(parseInt(props.timeEnd))
     const totalTime = parseInt(props.timeEnd) - parseInt(props.timeStart)
      return <li className="report-list-item">
-        <p className="finished-task-operator-name">{props.firstName} {props.lastName}</p>
+        <p className="finished-task-operator-name">{props.operatorName}</p>
         <p className="finished-tasks-operator-internal-number">{props.internalNumber}</p>
         <p className="finished-tasks-task">{props.task}</p>
         <p className="finished-tasks-time-start">{timeStart.getHours()}h{timeStart.getMinutes()}m{timeStart.getSeconds()}s | {timeStart.getDate()<9 ? "0"+timeStart.getDate():timeStart.getDate()}/{timeStart.getMonth()+1 <9 ? "0" + (timeStart.getMonth()+1):timeStart.getMonth()+1}/{timeStart.getFullYear()}</p>

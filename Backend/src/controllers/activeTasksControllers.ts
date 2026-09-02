@@ -47,12 +47,19 @@ async function endActiveTask(req:EndActiveTaskRequest,res:Response,next:NextFunc
  const id = req.params.id
     const activeTaskResponse = await pool.query("SELECT * FROM active_tasks WHERE id = $1",[id])
     const activeTask = activeTaskResponse.rows[0];
-    const finishedTask:FinishedTasks = {id,operatorId:activeTask.operator_id,
+    const operator = await pool.query("SELECT * FROM operators WHERE id = $1",[activeTask.operator_id])
+    const taskName = await pool.query("SELECT task from tasks where id = $1",[activeTask.task_id])
+    const finishedTask:FinishedTasks = {
+        id,
+        operatorName:`${operator.rows[0].first_name} ${operator.rows[0].last_name}`,
+        operatorInternalNumber:operator.rows[0].internal_number,
+        operatorId:activeTask.operator_id,
         taskId:activeTask.task_id,
         workplaceId:activeTask.workplace_id,
         timeStart:activeTask.time_start,
+        taskName:taskName.rows[0].task,
         timeEnd:Date.now()}
-    await pool.query("INSERT INTO finished_tasks (id,operator_id,task_id,workplace_id,time_start,time_end) values($1,$2,$3,$4,$5,$6)",[finishedTask.id,finishedTask.operatorId,finishedTask.taskId,finishedTask.workplaceId,finishedTask.timeStart,finishedTask.timeEnd])
+    await pool.query("INSERT INTO finished_tasks (id,operator_id,task_id,workplace_id,time_start,time_end,task_name,operator_name,operator_internal_number) values($1,$2,$3,$4,$5,$6,$7,$8,$9)",[finishedTask.id,finishedTask.operatorId,finishedTask.taskId,finishedTask.workplaceId,finishedTask.timeStart,finishedTask.timeEnd,finishedTask.taskName,finishedTask.operatorName,finishedTask.operatorInternalNumber])
 
     await pool.query("DELETE FROM active_tasks WHERE id = $1",[id])
     
@@ -71,7 +78,7 @@ async function getFinishedTasks(req:Request,res:Response,next:NextFunction){
     const timeIntervalInMillieSeconds = timeIntervalInSeconds *1000
     try{
         if(customReq.workplace.id !== customReq.managerAuth.workplace){throw new httpError("Not authorized",401)}
-        const response = await pool.query(`SELECT finished_tasks.id AS "id", operators.first_name AS "firstName", operators.last_name AS "lastName", operators.internal_number AS "internalNumber", tasks.task AS "task", finished_tasks.time_start AS "timeStart", finished_tasks.time_end AS "timeEnd" FROM finished_tasks INNER JOIN tasks ON tasks.id = finished_tasks.task_id INNER JOIN operators ON operators.id = finished_tasks.operator_id WHERE finished_tasks.workplace_id = $1 AND finished_tasks.time_end > $2 ORDER BY finished_tasks.time_end DESC`,[customReq.workplace.id,timeIntervalInMillieSeconds])
+        const response = await pool.query(`SELECT id AS "id", operator_name AS "operatorName", operator_internal_number AS "internalNumber", task_name AS "task", time_start AS "timeStart", time_end AS "timeEnd" FROM finished_tasks WHERE workplace_id = $1 AND finished_tasks.time_end > $2 ORDER BY finished_tasks.time_end DESC`,[customReq.workplace.id,timeIntervalInMillieSeconds])
         const finishedTasks = response.rows
         res.status(200).json({message:"Success",data:finishedTasks})
     }catch(error){

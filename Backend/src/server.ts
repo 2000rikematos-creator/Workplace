@@ -13,15 +13,13 @@ import { body } from 'express-validator';
 import errorsValidation from './middleware/errorsValidation.js';
 import * as allowedDevicesControllers from "./controllers/allowedDevicesControllers.js"
 import allowedDevicesRoutes from "./routes/allowedDevicesRoutes.js"
-
+import { deleteOldData } from './utils/cronJob.js';
+import cron from "node-cron";
 
 
 const port = process.env.PORT
 const app = express()
-
-
 const frontendURL = process.env.FRONTEND_URL;
-
 
 app.use(cors({ origin: frontendURL }));
 app.use(express.json())
@@ -43,4 +41,6 @@ app.use((error:httpError|Error,req:Request,res:Response,next:NextFunction)=>{
     res.status(statusCode).json({message:errorMessage})
 })
 
-app.listen(port,()=>{console.log(`server running on port ${port}`)})
+cron.schedule("0 1 * * *",()=>{deleteOldData()})
+
+app.listen(port,()=>{console.log(`server running on port ${port}`); deleteOldData()})

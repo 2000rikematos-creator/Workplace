@@ -52,6 +52,9 @@ export interface ActiveTasksWithData extends ActiveTasks{
 
 export interface FinishedTasks extends ActiveTasks {
 timeEnd:number;
+operatorName:string;
+taskName:string;
+operatorInternalNumber:string;
 }
 
 export interface ActiveTaskRequest extends AuthMiddlewareRequest {
