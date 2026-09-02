@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import ControlPanel from './pages/ControlPanel';
 import LandingPage from './pages/LandingPage';
 import {AuthContext} from '../src/context/AuthContext';
+import Footer from './components/shared/Footer';
 
 
 
@@ -57,6 +58,7 @@ useEffect(()=>{
   setMenuIsClicked={(yn)=>setMenuIsClicked(yn)}
    menuIsClicked={menuIsClicked} /> : <Navigate to="/landing-page" replace/>} />
 </Routes>
+<Footer />
   </Router>
 
    

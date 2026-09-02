@@ -1,0 +1,9 @@
+footer{
+    position: absolute;
+    bottom: 1em;
+    justify-self: center;
+    color: rgb(149, 148, 148);
+    font-size: 15px;
+    z-index: 20000;
+    font-family: var(--font-family-default);
+}
