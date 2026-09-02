@@ -1,5 +1,5 @@
 footer{
-    position: absolute;
+    position: fixed;
     bottom: 1em;
     justify-self: center;
     color: rgb(149, 148, 148);
