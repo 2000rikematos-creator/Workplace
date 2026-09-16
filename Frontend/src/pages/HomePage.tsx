@@ -246,7 +246,7 @@ async function initializeEnv(){
                 setErrorMessage("Session error")
             }
             
-            setTimeout(()=>{setErrorMessage("");context!.logout()},2000)
+            setTimeout(()=>{setErrorMessage("");context!.logout()},1000)
         }
     }
 
